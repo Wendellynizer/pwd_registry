@@ -1,2 +1,30 @@
+.vscode/
+
+# python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# django stuff
+*.log
+*.pot
+*.pyc
+media/
+
+# env
 .env
+.env.*
+!.env.example
+
+# virtual env
+env/
+ENV/
+.venv/
+.virtualenv/
 venv/
+
+# node
+node_modules/
+build/
+dist/

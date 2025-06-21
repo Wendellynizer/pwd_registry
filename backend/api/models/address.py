@@ -14,6 +14,7 @@ class Address(models.Model):
     )
     city = models.CharField(max_length=50)
     province = models.CharField(max_length=50)
+    region = models.CharField(max_length=2, null=True)
 
     def __str__(self):
         return f'{self.street_address} {self.barangay.barangay_name}'
