@@ -1,6 +1,7 @@
 .vscode/
 
 # python bytecode
+*.pyc
 __pycache__/
 *.py[cod]
 *$py.class
@@ -9,7 +10,6 @@ __pycache__/
 # django stuff
 *.log
 *.pot
-*.pyc
 media/
 
 # env
