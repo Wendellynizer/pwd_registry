@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchBarangays } from "../api/modules/barangay";
-import { fetchOccupations } from "../api/modules/occupation";
+import { fetchBarangays } from "../../api/modules/barangay";
+import { fetchOccupations } from "../../api/modules/occupation";
 
 function TestForm() {
 

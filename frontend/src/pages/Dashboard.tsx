@@ -6,7 +6,7 @@ import GenderChart from "../components/Analytics/GenderChart";
 
 function Dashboard() {
   return (
-    <div>
+    <>
       {/* welcome */}
       <p>Welcome NAME HERE!</p>
 
@@ -49,7 +49,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
