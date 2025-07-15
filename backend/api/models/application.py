@@ -29,7 +29,7 @@ class Applicant(models.Model):
         ]
     )
     
-    address = models.ForeignKey(
+    address = models.OneToOneField(
         Address,
         on_delete=models.CASCADE
     )
@@ -79,7 +79,6 @@ class Applicant(models.Model):
     def __str__(self):
         return f'{self.firstname} {self.middlename} {self.lastname}'
 
-
 class Application(models.Model):
     applicant = models.ForeignKey(
         Applicant,
@@ -109,7 +108,7 @@ class Application(models.Model):
     physician_name = models.CharField(max_length=100)
     physician_license_no = models.CharField(max_length=50)
 
-    #! temp
+    #! temp -> processing office (string or user reference?)
     processing_officer = models.CharField(max_length=100, null=True, blank=True)
     approving_officer = models.CharField(max_length=100, null=True, blank=True)
     encoder = models.CharField(max_length=100, null=True, blank=True)

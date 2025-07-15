@@ -26,7 +26,12 @@ def get_disability_types(request):
 
     return Response(serialized.data)
 
-# api for available occupations
+# occupaton api
 class OccupationViewSet(ModelViewSet):
     queryset = Occupation.objects.all()
     serializer_class = OccupationSerializer
+
+# application api
+class ApplicantViewSet(ModelViewSet):
+    queryset = Applicant.objects.all()
+    serializer_class = ApplicationSerializer

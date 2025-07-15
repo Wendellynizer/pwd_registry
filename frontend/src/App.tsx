@@ -1,36 +1,36 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import './App.css'
+import "./App.css";
+import { Routes, Route } from "react-router";
+Dashboard
+// import TestForm from "./pages/TestForm";
+import Dashboard from "./pages/Dashboard";
+import MainLayout from "./layout/MainLayout";
+import Application from "./pages/Application";
+import PWDForm from "./pages/PWDForm";
+import NotFound from "./pages/NotFound";
+import TestPage from "./pages/Test/TestPage";
 
 function App() {
-  // test only
-  const [barangays, setBarangays] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/barangays/')
-      .then(response => {
-        console.log('Barangays endpoint data:', response.data) // <-- Log to console
-        setBarangays(response.data)
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
-  }, [])
-
-  return (
-    <>
-      <h1>Barangays</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {barangays.map((barangay, idx) => (
-            <li key={barangay.id || idx}>{barangay.barangay_name}</li>
-          ))}
-        </ul>
-      )}
-    </>
-  )
+	return(
+		// <TestForm />
+		<Routes>
+			<Route path="/" element={<MainLayout />}>
+				<Route path="" element={<Dashboard />} />
+				<Route path="pwd-management" />
+				<Route path="application" element={<Application />}/>
+				<Route path="pwd-form" element={<PWDForm />}/>
+				<Route path="disability" />
+				<Route path="personnel" />
+				<Route path="map" />
+				<Route path="analytics" />
+				<Route path="reports" />
+				
+				{/* test only  */}
+				<Route path="test" element={<TestPage />} />
+			</Route>
+			<Route path="/*" element={<NotFound />} />
+		</Routes>
+	);
 }
 
-export default App
+export default App;
