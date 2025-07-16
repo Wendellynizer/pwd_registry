@@ -15,7 +15,6 @@ const Input = ({type='text', label, name, defaultValue, disabled=false, register
         
         <input 
           className='input input-sm rounded-sm border border-gray-400 px-2 py-3 w-full'
-          id={name}
           type={type}
           {...register(name)}
           

@@ -1,7 +1,7 @@
 import { Trash } from "lucide-react";
 import { Controller } from "react-hook-form";
 import type { Control } from 'react-hook-form';
-import Dropdown from "./Inputs/Dropdown";
+import Dropdown from "./Dropdown";
 
 type FormShape = {
   applicant_disability: {
