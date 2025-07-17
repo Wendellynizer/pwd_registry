@@ -4,10 +4,12 @@ import type { Control } from 'react-hook-form';
 import Dropdown from "./Inputs/Dropdown";
 
 type FormShape = {
-  applicant_disability: {
-    disability_cause: string;
-    disability_type_name: string;
-  }[];
+  applicant: {
+    applicant_disabilities: {
+      disability_cause: string;
+      disability: string;
+    }[];
+  }
 };
 
 interface DisabilityContainerProps {
@@ -15,16 +17,17 @@ interface DisabilityContainerProps {
   control: Control<FormShape>;
   remove: (index: number) => void;
   disabled?: boolean;
+  disabilityOption: Record<string, string>;
 }
 
 
-const DisabilityContainer = ({index, control, remove, disabled=false}: DisabilityContainerProps) => {
+const DisabilityContainer = ({index, control, remove, disabilityOption, disabled=false}: DisabilityContainerProps) => {
   return (
     <div className="border border-gray-300 rounded-md flex overflow-hidden">
       <div className="grid grid-cols-4 flex-1 gap-4 py-3 px-4 bg-gray-100">
         <div>
           <Controller
-            name={`applicant_disability.${index}.disability_cause`}
+            name={`applicant.applicant_disabilities.${index}.disability_cause`}
             control={control}
             defaultValue=""
             render={({field}) => (
@@ -40,13 +43,13 @@ const DisabilityContainer = ({index, control, remove, disabled=false}: Disabilit
         
         <div className="col-span-3">
           <Controller
-            name={`applicant_disability.${index}.disability_type_name`}
+            name={`applicant.applicant_disabilities.${index}.disability`}
             control={control}
             defaultValue=""
             render={({ field }) => (
               <Dropdown
                 {...field}
-                options={{ Amputee: "Amputee", Mental: "Mental" }}
+                options={disabilityOption}
                 initialValue="Select Disability"
                 expand
               />

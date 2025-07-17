@@ -1,10 +1,15 @@
 import type {UseFormRegister} from 'react-hook-form';
 
+type Option = {
+  key: string | number;
+  value: string;
+}
+
 interface DropdownProps {
     label?: string,
     name: string,
     options: Record<string, string>,
-    initialValue?: string, 
+    initialValue?: string
     expand?: boolean,
 		value?: string
     register?: UseFormRegister<any>,
@@ -38,11 +43,15 @@ const Dropdown = ({
 							: {defaultValue: ''})
 						}						
         >
-            <option>{initialValue}</option>
+          <option>{initialValue}</option>
             
-           {Object.entries(options).map(([key, value]) => (
-                <option key={key} value={key}>{value}</option>
-           ))}
+          {Object.entries(options).map(([key, value]) => (
+              <option key={key} value={key}>{value}</option>
+          ))}
+
+          {/* {options.map((opt) => (
+            <option key={opt.key} value={opt.value}>{opt.value}</option>
+          ))} */}
         </select>
     </div>
   )

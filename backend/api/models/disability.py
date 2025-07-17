@@ -1,5 +1,7 @@
 from django.db import models
 
+from .application import Applicant
+
 #* type
 class DisabilityType(models.Model):
     disability_type_name = models.CharField(max_length=50)
@@ -33,7 +35,11 @@ class ApplicantDisability(models.Model):
         on_delete=models.CASCADE
     )
 
-    #! applicant
+    applicant = models.ForeignKey(
+        Applicant,
+        on_delete=models.CASCADE,
+        related_name='applicant_disabilities'
+    )
 
     def __str__(self):
         return super().__str__()

@@ -31,7 +31,12 @@ class OccupationViewSet(ModelViewSet):
     queryset = Occupation.objects.all()
     serializer_class = OccupationSerializer
 
+class DisabilityViewSet(ModelViewSet):
+    queryset = Disability.objects.all()
+    serializer_class = DisabilitySerializer
+
+
 # application api
-class ApplicantViewSet(ModelViewSet):
-    queryset = Applicant.objects.all()
+class ApplicationViewSet(ModelViewSet):
+    queryset = Application.objects.all()
     serializer_class = ApplicationSerializer

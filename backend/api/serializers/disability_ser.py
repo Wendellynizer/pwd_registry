@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from ..models.disability import *
+# from .applicant_info_ser import ApplicantSerializer
 
 class DisabilityTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,7 +13,3 @@ class DisabilitySerializer(serializers.ModelSerializer):
         model = Disability
         fields = '__all__'
 
-class ApplicantDisabilitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ApplicantDisability
-        fields = '__all__'

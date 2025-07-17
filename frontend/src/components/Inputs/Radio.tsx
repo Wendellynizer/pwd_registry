@@ -1,5 +1,3 @@
-import React from 'react'
-
 /* 
     the radioName array holds the values/name of the radio
     ex (Male, Female), which then creates input type radio
@@ -8,43 +6,30 @@ import React from 'react'
 
 interface RadioProps {
     label: string,
-    fieldName: string,
+    name: string,
     radioField: Record<string, string>,
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    register: any
 }
 
-const Radio = ({label, fieldName, radioField, onChange}: RadioProps) => {
+const Radio = ({label, name, radioField, register}: RadioProps) => {
   return (
     <div>
-        <label htmlFor={fieldName}>{label}</label>
+        <label htmlFor={name}>{label}</label>
         
         <div className='flex gap-4 mt-3'>
             {Object.entries(radioField).map(([key, value]) => (
                 <div className='space-x-1' key={key}>
                     <input 
-                        type="radio" 
+                        type="radio"
+                        {...register(name)} 
                         className='radio' 
-                        name={fieldName} 
                         id={key} 
                         value={key} 
                         key={key}
-                        onChange={onChange}/>
+                    />
                     <label htmlFor={key}>{value}</label>
                 </div>
             ))}
-
-            {/* {radioName.map((name, idx) => (
-                <div className='space-x-1' key={idx}>
-                    <input 
-                        type="radio" 
-                        className='radio' 
-                        name="gender" 
-                        id={fieldName} 
-                        value={name} 
-                        key={idx}/>
-                    <span>{name}</span>
-                </div>
-            ))} */}
         </div>
         
     </div>

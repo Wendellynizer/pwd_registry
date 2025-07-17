@@ -80,7 +80,7 @@ class Applicant(models.Model):
         return f'{self.firstname} {self.middlename} {self.lastname}'
 
 class Application(models.Model):
-    applicant = models.ForeignKey(
+    applicant = models.OneToOneField(
         Applicant,
         on_delete=models.CASCADE
     )
