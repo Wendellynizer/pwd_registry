@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
 import { useFieldArray, useForm } from 'react-hook-form';
 import AccordionItem from '../components/AccordionItem';
-import Input from '../components/TestInput/Input';
-import Radio from '../components/TestInput/Radio';
-import Dropdown from '../components/TestInput/Dropdown';
+import Input from '../components/Inputs/Input';
+import Radio from '../components/Inputs/Radio';
+import Dropdown from '../components/Inputs/Dropdown';
 import Button from '../components/Buttons/Button';
-import DisabilityContainer from '../components/TestInput/DisabilityContainer';
-import { useNavigate } from 'react-router';
+import DisabilityContainer from '../components/DisabilityContainer';
+import { fetchBarangays } from '../api/modules/barangay';
+import { fetchOccupations } from '../api/modules/occupation';
+import { applicationCrud } from '../api/modules/application';
+import { disabilityCrud } from '../api/modules/disability';
 
 const PWDForm = () => {
 
@@ -27,32 +31,37 @@ const PWDForm = () => {
           mobile_no: "",
           email: "",
           educational_attainment: "No",
+          apparent_disability: "Y",
           address: {
             street_address: "",
             barangay: "",
             city: "Tagum City",
             province: "Davao del Norte",
             region: "XI",
-          }
-        },
-        applicant_disability: [
-          {
-            'disability_cause': '',
-            'disability_type_name': '',
-          }
-        ],
-        employment: {
-          emp_status: "",
-          emp_category: "",
-          emp_type: "",
-          occupation: "",
-          other_occupation: "",
-          organization: {
-            affiliated_org: "",
-            contact_person: "",
-            office_address: "",
-            tel_no: "",
           },
+          employment: {
+            emp_status: "",
+            emp_category: "",
+            emp_type: "",
+            occupation: "",
+            other_occupation: "",
+            organization: {
+              affiliated_org: "",
+              contact_person: "",
+              office_address: "",
+              tel_no: "",
+            },
+          },
+          id_reference: {
+            sss_no: "",
+            gsis_no: "",
+            pagibig_no: "",
+            psn_no: "",
+            philhealth_no: "",
+            other_id: "",
+            other_id_no: "",
+          },
+          applicant_disabilities: [{}],
         },
         family_details: {
           father_lastname: "",
@@ -65,19 +74,12 @@ const PWDForm = () => {
           guardian_firstname: "",
           guardian_middlename: "",
         },
-        id_reference: {
-          sss_no: "",
-          gsis_no: "",
-          pagibig_no: "",
-          psn_no: "",
-          philhealth_no: "",
-          other_id_name: "",
-          other_id: "",
-        },
+        registration_type: "Wa",
+        registration_no: '123',
         accomplished_by: "",
-        accomplished_name: "",
+        accomplished_by_name: "",
         physician_name: "",
-        physician_license: "",
+        physician_license_no: "",
         processing_officer: "",
         approving_officer: "",
         encoder: "",
@@ -86,17 +88,72 @@ const PWDForm = () => {
       }
   });
 
-  const onSubmit = (data: any) => {
-     navigate("/test", { state: data });
+  const onSubmit = async(formData: any) => {
+    //  navigate("/test", { state: data });
+    try {
+      const data = await applicationCrud.create(formData);
+      console.log('Created Successfull:', data)
+    } catch(error) {
+      console.error('Error Creating Application: ',error);
+    }
+
+    console.log(formData)
   }
 
   const {fields, append, remove} = useFieldArray({
     control,
-    name: 'applicant_disability'
+    name: 'applicant.applicant_disabilities'
   })
+
+  const [barangays, setBarangays] = useState({});
+  const [occupations, setOccupations] = useState({});
+  const [disabilitySelection, setDisabilitySelection] = useState({});
+
+  useEffect(() => {
+    // fetch barangays
+    const getBarangay = async() => {
+      // fetch barangay
+      const response = await fetchBarangays();
+
+      // turn array into object
+      const barangayObject = Object.fromEntries(
+        response.data.map((item: any) => [item.id, item.barangay_name])
+      );
+
+      setBarangays(barangayObject);
+    }
+
+    // fetch occupations
+    const getOccupation = async() => {
+      //fetch occupation
+      const response = await fetchOccupations();
+      
+      const occupationObject = Object.fromEntries(
+        response.data.map((item: any) => [item.id, item.occupation_name])
+      );
+      
+      setOccupations(occupationObject);
+    }
+
+    // fetch disabilities 
+    const getDisabilities = async() => {
+      const response = await disabilityCrud.getAll();
+      
+      const disabilityObject = Object.fromEntries(
+        response.map((item: any) => [item.id, item.disability_name])
+      );
+      
+      setDisabilitySelection(disabilityObject);
+    }
+
+    getBarangay();
+    getOccupation();
+    getDisabilities();
+  }, []);
 
   return (
     <>
+      
       <form onSubmit={handleSubmit(onSubmit)} className='pb-8'>
         <AccordionItem title='Personal Information'>
           <InputContainer>
@@ -199,11 +256,12 @@ const PWDForm = () => {
               control={control}
               remove={remove}
               disabled={ fields.length === 1 }
+              disabilityOption={disabilitySelection}
             />
           ))}
 
           <div className="flex justify-end mt-4">
-            <Button label="Add Another Disability" onClick={() => append({ disability_cause: '', disability_type_name: '' })} />
+            <Button label="Add Another Disability" onClick={() => append({ disability_cause: '', disability: '' })} />
           </div>
         </AccordionItem>
 
@@ -214,14 +272,14 @@ const PWDForm = () => {
               name="applicant.address.street_address"
               register={register}
             />
+
             <Dropdown
               label="Barangay"
               name="applicant.address.barangay"
-              options={{
-                1: "Apokon",
-              }}
+              options={barangays}
               register={register}
             />
+
             <Input
               label="City"
               name="applicant.address.city"
@@ -294,7 +352,7 @@ const PWDForm = () => {
           <InputContainer>
             <Dropdown
               label="Employment Status"
-              name="employment.emp_status"
+              name="applicant.employment.emp_status"
               options={{
                 Em: "Employed",
                 Un: "Unemployed",
@@ -305,7 +363,7 @@ const PWDForm = () => {
 
             <Dropdown
               label="Employment Category"
-              name="employment.emp_category"
+              name="applicant.employment.emp_category"
               options={{
                 Go: "Government",
                 Pr: "Private",
@@ -315,7 +373,7 @@ const PWDForm = () => {
 
             <Dropdown
               label="Employment Type"
-              name="employment.emp_type"
+              name="applicant.employment.emp_type"
               options={{
                 Re: "Permanent/Regular",
                 Se: "Seasonal",
@@ -329,14 +387,14 @@ const PWDForm = () => {
           <InputContainer>
             <Dropdown
               label="Occupation"
-              name="employment.occupation"
-              options={{ 1: "Military" }}
+              name="applicant.employment.occupation"
+              options={occupations}
               register={register}
             />
 
             <Input
               label="Other Occupation"
-              name="employment.other_occupation"
+              name="applicant.employment.other_occupation"
               register={register}
             />
           </InputContainer>
@@ -346,19 +404,19 @@ const PWDForm = () => {
           <InputContainer>
             <Input
               label="Organization Affiliated"
-              name="employment.organization.affiliated_org"
+              name="applicant.employment.organization.affiliated_org"
               register={register}
             />
 
             <Input
               label="Contact Person"
-              name="employment.organization.contact_person"
+              name="application.employment.organization.contact_person"
               register={register}
             />
 
             <Input
               label="Office Address"
-              name="employment.organization.office_address"
+              name="applicant.employment.organization.office_address"
               register={register}
             />
           </InputContainer>
@@ -366,7 +424,7 @@ const PWDForm = () => {
           <InputContainer>
             <Input
               label="Tel. No."
-              name="employment.organization.tel_no"
+              name="applicant.employment.organization.tel_no"
               register={register}
             />
           </InputContainer>
@@ -376,17 +434,17 @@ const PWDForm = () => {
           <InputContainer>
             <Input 
               label="SSS No." 
-              name="id_reference.sss_no" 
+              name="applicant.id_reference.sss_no" 
                register={register}
             />
             <Input
               label="GSIS No."
-              name="id_reference.gsis_no"
+              name="applicant.id_reference.gsis_no"
               register={register}
             />
             <Input
               label="PAG-IBIG No."
-              name="id_reference.pagibig_no"
+              name="applicant.id_reference.pagibig_no"
               register={register}
             />
           </InputContainer>
@@ -394,18 +452,18 @@ const PWDForm = () => {
           <InputContainer>
             <Input 
               label="PSN No." 
-              name="id_reference.psn_no" 
+              name="applicant.id_reference.psn_no" 
               register={register} 
             />
 
             <Input
               label="PhilHealth No."
-              name="id_reference.philhealth_no"
+              name="applicant.id_reference.philhealth_no"
               register={register}
             />
             <Input
               label="Other ID"
-              name="id_reference.other_id_name"
+              name="applicant.id_reference.other_id"
               register={register}
             />
           </InputContainer>
@@ -413,7 +471,7 @@ const PWDForm = () => {
           <InputContainer>
             <Input
               label="Other ID No."
-              name="id_reference.other_id"
+              name="applicant.id_reference.other_id_no"
               register={register}
             />
           </InputContainer>
@@ -495,7 +553,7 @@ const PWDForm = () => {
           <InputContainer column="grid-col-1">
             <Input
               label="Accomplished by Full Name"
-              name="accomplished_name"
+              name="accomplished_by_name"
               register={register}
             />
           </InputContainer>
@@ -509,7 +567,7 @@ const PWDForm = () => {
             />
             <Input
               label="License No."
-              name="physician_license"
+              name="physician_license_no"
               register={register}
             />
           </InputContainer>
