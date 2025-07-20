@@ -95,11 +95,15 @@ const PWDForm = () => {
       console.log('Created Successfull:', data)
     } catch(error) {
       console.error('Error Creating Application: ',error);
+      return;
     }
 
-    console.log(formData)
+    // console.log(formData)
+    // navigate to application page
+    navigate('/application');
   }
 
+  // use for dynamic fields in disabilities
   const {fields, append, remove} = useFieldArray({
     control,
     name: 'applicant.applicant_disabilities'

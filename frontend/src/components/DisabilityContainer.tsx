@@ -7,7 +7,7 @@ type FormShape = {
   applicant: {
     applicant_disabilities: {
       disability_cause: string;
-      disability: string;
+      disability: any;
     }[];
   }
 };

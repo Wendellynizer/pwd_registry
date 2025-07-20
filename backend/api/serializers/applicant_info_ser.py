@@ -5,8 +5,8 @@ from ..models.address import *
 from ..models.employment import *
 from ..models.idreference import *
 from ..models.application import *
-from ..models.disability import ApplicantDisability
-# from .disability_ser import ApplicantDisabilitySerializer
+from ..models.disability import ApplicantDisability, Disability
+from .disability_ser import DisabilitySerializer
 
 # serialized data into JSON etc.
 class BarangaySerializer(serializers.ModelSerializer):
@@ -15,6 +15,13 @@ class BarangaySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AddressSerializer(serializers.ModelSerializer):
+    barangay_details = BarangaySerializer(source='barangay', read_only=True)
+
+    # Write-only barangay ID
+    barangay = serializers.PrimaryKeyRelatedField(
+        queryset=Barangay.objects.all(), write_only=True
+    )
+
     class Meta:
         model = Address
         fields = '__all__'
@@ -24,9 +31,29 @@ class OccupationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EmploymentSerializer(serializers.ModelSerializer):
+    emp_status_display = serializers.SerializerMethodField()
+    emp_category_display = serializers.SerializerMethodField()
+    emp_type_display = serializers.SerializerMethodField()
+
+    occupation_details = OccupationSerializer(source='occupation', read_only=True)
+
+    # Write-only barangay ID
+    occupation = serializers.PrimaryKeyRelatedField(
+        queryset=Occupation.objects.all(), write_only=True
+    )
+
     class Meta:
         model = Employment
         fields = '__all__'
+
+    def get_emp_status_display(self, obj):
+        return obj.get_emp_status_display()
+    
+    def get_emp_category_display(self, obj):
+        return obj.get_emp_category_display()
+    
+    def get_emp_type_display(self, obj):
+        return obj.get_emp_type_display()
 
 class IDReferenceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +61,10 @@ class IDReferenceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ApplicantDisabilitySerializer(serializers.ModelSerializer):
-
+     # This will be used only for reading
+    disability_details = DisabilitySerializer(source='disability', read_only=True)
+    # This will be used for writing
+    disability = serializers.PrimaryKeyRelatedField(queryset=Disability.objects.all())
     class Meta:
         model = ApplicantDisability
         # fields = '__all__'
@@ -46,6 +76,9 @@ class ApplicantSerializer(serializers.ModelSerializer):
     employment = EmploymentSerializer()
     id_reference = IDReferenceSerializer()
     applicant_disabilities = ApplicantDisabilitySerializer(many=True)
+
+    # This is for output: returns the label instead of the code
+    educational_attainment_display = serializers.SerializerMethodField()
     
 
     class Meta:
@@ -77,6 +110,10 @@ class ApplicantSerializer(serializers.ModelSerializer):
     
         return applicant
 
+    def get_educational_attainment_display(self, obj):
+        return obj.get_educational_attainment_display()
+    
+    
 
 
 
@@ -86,9 +123,15 @@ class ApplicantSerializer(serializers.ModelSerializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     applicant = ApplicantSerializer()
 
+    accomplished_by_display = serializers.SerializerMethodField()
+
+
     class Meta:
         model = Application
         fields = '__all__'
+
+    def get_accomplished_by_display(self, obj):
+        return obj.get_accomplished_by_display()
 
     @transaction.atomic
     def create(self, validated_data):

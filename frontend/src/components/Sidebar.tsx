@@ -67,7 +67,7 @@ const Sidebar = () => {
             <SidebarLink
               icon={<Accessibility />}
               linkName="PWD"
-              to="/pwd-management"
+              to="/pwd"
             />
           </li>
 

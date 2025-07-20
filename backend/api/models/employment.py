@@ -43,7 +43,7 @@ class Employment(models.Model):
         null=True
     )
 
-    other_occupation = models.CharField(max_length=100, null=True)
+    other_occupation = models.CharField(max_length=100, null=True, blank=True)
     organization = models.JSONField(default=dict, null=True, blank=True)
 
     # def __str__(self):

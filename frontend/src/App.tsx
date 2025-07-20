@@ -8,6 +8,8 @@ import Application from "./pages/Application";
 import PWDForm from "./pages/PWDForm";
 import NotFound from "./pages/NotFound";
 import TestPage from "./pages/Test/TestPage";
+import ApplicationProfile from "./pages/ApplicationProfile";
+import PWD from "./pages/PWD";
 
 function App() {
 
@@ -16,8 +18,9 @@ function App() {
 		<Routes>
 			<Route path="/" element={<MainLayout />}>
 				<Route path="" element={<Dashboard />} />
-				<Route path="pwd-management" />
-				<Route path="application" element={<Application />}/>
+				<Route path="pwd" element={<PWD />} />
+				<Route path="application" element={<Application />} />
+				<Route path="application/:applicationId" element={<ApplicationProfile />}/>
 				<Route path="pwd-form" element={<PWDForm />}/>
 				<Route path="disability" />
 				<Route path="personnel" />

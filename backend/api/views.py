@@ -26,6 +26,10 @@ def get_disability_types(request):
 
     return Response(serialized.data)
 
+@api_view(['GET'])
+def get_dashboard_data(request):
+    return
+
 # occupaton api
 class OccupationViewSet(ModelViewSet):
     queryset = Occupation.objects.all()

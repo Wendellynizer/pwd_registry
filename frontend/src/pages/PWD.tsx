@@ -12,7 +12,7 @@ import {
 } from '../components/Table';
 // import Input from '../components/Inputs/Input';
 
-const Application = () => {
+const PWD = () => {
 
   const [applications, setApplications] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
@@ -22,33 +22,23 @@ const Application = () => {
   }
 
   const header = [
-    'Reg No.', 'Last Name', 'First Name',
-    'Middle Name', 'Disability Type', 'Date Applied', 'Status', 'Actions'
+    'Issued PWD ID', 'ID Status', 'Last Name	', 'First Name',
+    'Middle Name', 'Disability Type', 'Date Applied', 'Actions'
   ];
-
-  useEffect(() => {
-    const loadApplications = async () => {
-      const data = await applicationCrud.getAll();
-      setApplications(data);
-      console.log(data);
-    }
-
-    loadApplications();
-  }, []);
 
   return (
     <>
       <div className='space-y-4'>
-        <div>
-          <p className='text-xl font-semibold'>PWD Application</p>
-        </div>
-
-        <div className='flex justify-end'>
+        {/* <div className='flex justify-end'>
           <Link to='/pwd-form'
           className='btn btn-sm bg-[#437057] text-white'>
             <ClipboardPlus size={20} />
             <p>Create Application</p>
           </Link>
+        </div> */}
+
+        <div>
+            <p className='text-xl font-semibold'>PWD Masterlist</p>
         </div>
 
         {/* search and filter */}
@@ -80,37 +70,44 @@ const Application = () => {
           </TableHead>
 
           <TableBody>
-            {applications.map((app: any) => (
-              <TableRow key={app.id}>
-                <TableCell>{app.registration_no}</TableCell>
-                <TableCell>{app.applicant.lastname}</TableCell>
-                <TableCell>{app.applicant.firstname}</TableCell>
-                <TableCell>{app.applicant.middlename}</TableCell>
-                <TableCell>
-                  <div className='space-x-2'>
-                    {app.applicant.applicant_disabilities.map((dis: any, index: any) => (
-                      <span className='badge badge-sm border-gray-200 rounded-sm' key={index}>{dis.disability_details.disability_type.disability_type_name}</span>
-                    ))}
-                  </div>
-                </TableCell>
-                <TableCell>{app.date_applied}</TableCell>
-                <TableCell>
-                  <TableBadge text={app.status} />
-                </TableCell>
-                <TableCell>
-                  <div className='flex justify-around items-center'>
-                    <Link to={`/application/`+app.id} className='text-green-600'><Eye /></Link>
-                    <Link to='' className='text-blue-400'><SquarePen /></Link>
-                    <Link to='' className='text-red-400'><Trash2 /></Link>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+            {applications.length === 0 ? (
+                <TableRow>
+                    <TableCell colSpan={8} className='text-center'>
+                        <span className="text-gray-400">No PWD found.</span>
+                    </TableCell>
+                </TableRow>
+            ) : (
+                applications.map((app: any) => (
+                    <TableRow key={app.id}>
+                        <TableCell>{app.registration_no}</TableCell>
+                        <TableCell>{app.applicant.lastname}</TableCell>
+                        <TableCell>{app.applicant.firstname}</TableCell>
+                        <TableCell>{app.applicant.middlename}</TableCell>
+                        <TableCell>
+                        <div className='space-x-2'>
+                            {app.applicant.applicant_disabilities.map((dis: any, index: any) => (
+                            <span className='badge badge-sm border-gray-200 rounded-sm' key={index}>{dis.disability_details.disability_type.disability_type_name}</span>
+                            ))}
+                        </div>
+                        </TableCell>
+                        <TableCell>{app.date_applied}</TableCell>
+                        <TableCell>
+                        <TableBadge text={app.status} />
+                        </TableCell>
+                        <TableCell>
+                        <div className='flex justify-around items-center'>
+                            <Link to={`/application/`+app.id} className='text-green-600'><Eye /></Link>
+                            <Link to='' className='text-blue-400'><SquarePen /></Link>
+                            <Link to='' className='text-red-400'><Trash2 /></Link>
+                        </div>
+                        </TableCell>
+                    </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
 
         {/* Pagination */}
-        {/* should i add pagination component? */}
        <div className='mt-4 flex justify-between'>
          {/* record count */}
          <p className='text-sm'>Showing <span className='font-semibold'>1 - 3</span>  of <span className='font-semibold'>3</span> Entries</p>
@@ -139,34 +136,24 @@ const Application = () => {
   )
 }
 
-export default Application;
+export default PWD;
 
 interface AdvanceFilterProps {
-  closeFilter: () => void;
-  filters: {
-    date_from: string;
-    date_to: string;
-    disability: string;
-    status: string;
-  };
-  setFilters: React.Dispatch<React.SetStateAction<any>>;
-  applyFilters: () => void;
+  closeFilter: () => void
 }
 
 const AdvanceFilter = ({closeFilter}: AdvanceFilterProps) => {
   return(
-    <div className='bg-white border border-gray-300 rounded-sm px-2 pt-2 pb-4 text-sm absolute top-52 right-5 z-10 transition-all w-90'>
-      <div className='flex justify-between items-center px-2 mb-6'>
+    <div className='bg-white border border-gray-300 rounded-sm px-2 pt-2 pb-4 text-sm absolute top-42 right-5 z-10 transition-all w-80'>
+      <div className='flex justify-between items-center px-2'>
         <p>Advance Filter</p>
 
-        <div className='flex items-center gap-4'>
-          <button type='button' className='cursor-pointer' onClick={closeFilter} >
-            <X />
-          </button>
-        </div>
+        <button type='button' className='cursor-pointer' onClick={closeFilter} >
+          <X />
+        </button>
       </div>
 
-      <div className='px-2'>
+      <div className='px-2 mt-4'>
         <div className='flex justify-between items-center'>
           <p className='opacity-50'>Date Range</p>
           <p className='text-blue-400 text-xs'>Clear</p>
@@ -174,11 +161,11 @@ const AdvanceFilter = ({closeFilter}: AdvanceFilterProps) => {
 
         <div className="grid grid-cols-2 gap-4 mt-2">
           <div className='flex flex-col'>
-            <label htmlFor="">From</label>
+            <p className='opacity-50'>From</p>
             <input type="date" className='input input-sm' />
           </div>
            <div className='flex flex-col'>
-            <label htmlFor="">To</label>
+            <p className='opacity-50'>To</p>
             <input type="date" className='input input-sm' />
           </div>
         </div>
@@ -189,7 +176,7 @@ const AdvanceFilter = ({closeFilter}: AdvanceFilterProps) => {
             <p className='text-blue-400 text-xs'>Clear</p>
           </div>
 
-          <select name="" id="" className='select select-sm mt-2 w-full'>
+          <select name="" id="" className='select select-sm mt-2'>
             <option value="">All</option>
             <option value="">Speech and Language</option>
             <option value="">Visual</option>
@@ -210,11 +197,11 @@ const AdvanceFilter = ({closeFilter}: AdvanceFilterProps) => {
             <p className='text-blue-400 text-xs'>Clear</p>
           </div>
 
-          <select name="" id="" className='select select-sm mt-2 w-full'>
+          <select name="" id="" className='select select-sm mt-2'>
             <option value="">All</option>
-            <option value="">Pending</option>
-            <option value="">Rejected</option>
-            <option value="">Approved</option>
+            <option value="">Active</option>
+            <option value="">Will Expire</option>
+            <option value="">Inactive</option>
           </select>
         </div>
 
