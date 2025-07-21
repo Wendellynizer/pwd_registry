@@ -41,7 +41,8 @@ const Dropdown = ({
 							: register
 							? register(name)
 							: {defaultValue: ''})
-						}						
+						}				
+            onChange={onChange}		
         >
           <option>{initialValue}</option>
             

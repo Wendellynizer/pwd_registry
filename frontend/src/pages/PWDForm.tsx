@@ -158,7 +158,7 @@ const PWDForm = () => {
   return (
     <>
       <p className='text-lg mb-4 font-semibold'>Registration Form</p>
-      <form onSubmit={handleSubmit(onSubmit)} className='pb-8'>
+      <form onSubmit={handleSubmit(onSubmit)} method='POST' className='pb-8'>
         <AccordionItem title='Personal Information'>
           <InputContainer>
             <Input 

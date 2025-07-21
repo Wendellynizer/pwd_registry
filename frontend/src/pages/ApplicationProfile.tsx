@@ -206,9 +206,9 @@ const ApplicationProfile = () => {
 					</ColumnedContainer>
 
 					<ColumnedContainer>
-						<DataContainer label='Processing Officer' value={application.physician_name} />
-						<DataContainer label='Approving Officer' value={application.physician_license_no} />
-						<DataContainer label='Encoder' value={application.physician_license_no} />
+						<DataContainer label='Processing Officer' value={application.processing_officer} />
+						<DataContainer label='Approving Officer' value={application.processing_officer} />
+						<DataContainer label='Encoder' value={application.encoder} />
 						<DataContainer label='Reporting Unit (Office/Section)' value={application.reporting_unit} />
 						<DataContainer label='Control No.' value={application.control_no} />
 					</ColumnedContainer>
