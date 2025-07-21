@@ -17,8 +17,20 @@ const Application = () => {
   const [applications, setApplications] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
 
+  const [filters, setFilters] = useState({
+    date_from: '',
+    date_to: '',
+    disability_type: '',
+    status: ''
+  });
+
   const toggleFilter = () => {
     setShowFilter(!showFilter);
+  }
+
+  const applyFilters = async() => {
+    const data = await applicationCrud.getAll(filters);
+    setApplications(data);
   }
 
   const header = [
@@ -66,7 +78,12 @@ const Application = () => {
               <ListFilter size={18}/>
             </button>
 
-            {showFilter && <AdvanceFilter closeFilter={toggleFilter} />}
+            {showFilter && <AdvanceFilter 
+              closeFilter={toggleFilter}
+              filters={filters}
+              setFilters={setFilters}
+              applyFilters={applyFilters}
+            />}
           </div>
         </div>
 
@@ -146,21 +163,39 @@ interface AdvanceFilterProps {
   filters: {
     date_from: string;
     date_to: string;
-    disability: string;
+    disability_type: string;
     status: string;
   };
   setFilters: React.Dispatch<React.SetStateAction<any>>;
   applyFilters: () => void;
 }
 
-const AdvanceFilter = ({closeFilter}: AdvanceFilterProps) => {
-  return(
+const AdvanceFilter = ({
+  closeFilter,
+  filters,
+  setFilters,
+  applyFilters
+}: AdvanceFilterProps) => {
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFilters((prev: any) => ({ ...prev, [name]: value }));
+  };
+
+  const clearFields = (...fields: any) => {
+    setFilters((prev: any) => {
+      const updated = { ...prev };
+      fields.forEach((field: any) => (updated[field] = ''));
+      return updated;
+    });
+  };
+
+  return (
     <div className='bg-white border border-gray-300 rounded-sm px-2 pt-2 pb-4 text-sm absolute top-52 right-5 z-10 transition-all w-90'>
       <div className='flex justify-between items-center px-2 mb-6'>
         <p>Advance Filter</p>
-
         <div className='flex items-center gap-4'>
-          <button type='button' className='cursor-pointer' onClick={closeFilter} >
+          <button type='button' className='cursor-pointer' onClick={closeFilter}>
             <X />
           </button>
         </div>
@@ -169,62 +204,73 @@ const AdvanceFilter = ({closeFilter}: AdvanceFilterProps) => {
       <div className='px-2'>
         <div className='flex justify-between items-center'>
           <p className='opacity-50'>Date Range</p>
-          <p className='text-blue-400 text-xs'>Clear</p>
+          <button onClick={() => clearFields('date_from', 'date_to')} className='text-xs text-blue-500 hover:underline'>Clear</button>
         </div>
 
         <div className="grid grid-cols-2 gap-4 mt-2">
           <div className='flex flex-col'>
-            <label htmlFor="">From</label>
-            <input type="date" className='input input-sm' />
+            <label>From</label>
+            <input
+              type='date'
+              name='date_from'
+              value={filters.date_from}
+              onChange={handleChange}
+              className='input input-sm'
+            />
           </div>
-           <div className='flex flex-col'>
-            <label htmlFor="">To</label>
-            <input type="date" className='input input-sm' />
+
+          <div className='flex flex-col'>
+            <label>To</label>
+            <input
+              type='date'
+              name='date_to'
+              value={filters.date_to}
+              onChange={handleChange}
+              className='input input-sm'
+            />
           </div>
         </div>
 
         <div className='mt-4'>
           <div className='flex justify-between items-center'>
             <p className='opacity-50'>Disability Type</p>
-            <p className='text-blue-400 text-xs'>Clear</p>
+            <button onClick={() => clearFields('disability_type')} className='text-blue-400 text-xs'>Clear</button>
           </div>
-
-          <select name="" id="" className='select select-sm mt-2 w-full'>
+          <select name='disability_type' value={filters.disability_type} onChange={handleChange} className='select select-sm mt-2 w-full'>
             <option value="">All</option>
-            <option value="">Speech and Language</option>
-            <option value="">Visual</option>
-            <option value="">Learning</option>
-            <option value="">Physical</option>
-            <option value="">Psychosocial</option>
-            <option value="">Mental</option>
-            <option value="">Intellectual</option>
-            <option value="">Hearing</option>
-            <option value="">Rare Disease</option>
-            <option value="">Cancer</option>
+            <option value="7">Speech and Language</option>
+            <option value="8">Visual</option>
+            <option value="3">Learning</option>
+            <option value="5">Physical</option>
+            <option value="6">Psychosocial</option>
+            <option value="4">Mental</option>
+            <option value="2">Intellectual</option>
+            <option value="1">Hearing</option>
+            <option value="10">Rare Disease</option>
+            <option value="9">Cancer</option>
           </select>
         </div>
 
         <div className='mt-4'>
           <div className='flex justify-between items-center'>
             <p className='opacity-50'>Status</p>
-            <p className='text-blue-400 text-xs'>Clear</p>
+            <button onClick={() => clearFields('status')} className='text-blue-400 text-xs'>Clear</button>
           </div>
-
-          <select name="" id="" className='select select-sm mt-2 w-full'>
+          <select name='status' value={filters.status} onChange={handleChange} className='select select-sm mt-2 w-full'>
             <option value="">All</option>
-            <option value="">Pending</option>
-            <option value="">Rejected</option>
-            <option value="">Approved</option>
+            <option value="Pending">Pending</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Approved">Approved</option>
           </select>
         </div>
 
-        <button type="button" className='btn btn-sm w-full bg-[#437057] text-white mt-4'>
+        <button type="button" className='btn btn-sm w-full bg-[#437057] text-white mt-4' onClick={applyFilters}>
           Apply
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const TableBadge = ({text}: {text: string | number}) => {
 

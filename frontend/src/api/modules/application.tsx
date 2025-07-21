@@ -1,9 +1,11 @@
 import api from "..";
 
 export const applicationCrud = {
-    getAll: async() => {
-        const reponse = await api.get('applications/');
-        return reponse.data;
+    getAll: async(filters = {}) => {
+        const response = await api.get('applications/', {
+            params: filters,
+        });
+        return response.data;
     },
     get: async(id: any) => {
         const reponse = await api.get('applications/'+id);
