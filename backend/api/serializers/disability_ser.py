@@ -6,9 +6,10 @@ from ..models.disability import *
 class DisabilityTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisabilityType
-        fields = '__all__'
+        fields = ['disability_type_name']
 
 class DisabilitySerializer(serializers.ModelSerializer):
+    disability_type = DisabilityTypeSerializer()
     class Meta:
         model = Disability
         fields = '__all__'

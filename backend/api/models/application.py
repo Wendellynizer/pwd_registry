@@ -35,9 +35,9 @@ class Applicant(models.Model):
     )
 
     #* contact
-    landline = models.CharField(max_length=20, null=True)
-    mobile_no = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=20, null=True)
+    landline = models.CharField(max_length=20, null=True, blank=True)
+    mobile_no = models.CharField(max_length=20, null=True, blank=True)
+    email = models.CharField(max_length=20, null=True, blank=True)
 
     educational_attainment = models.CharField(  
         max_length=30,
@@ -105,8 +105,8 @@ class Application(models.Model):
 
     accomplished_by_name = models.CharField(max_length=100)
     
-    physician_name = models.CharField(max_length=100)
-    physician_license_no = models.CharField(max_length=50)
+    physician_name = models.CharField(max_length=100, null=True, blank=True)
+    physician_license_no = models.CharField(max_length=50, null=True, blank=True)
 
     #! temp -> processing office (string or user reference?)
     processing_officer = models.CharField(max_length=100, null=True, blank=True)
@@ -115,5 +115,15 @@ class Application(models.Model):
 
     reporting_unit = models.CharField(max_length=100, null=True, blank=True)
     control_no = models.CharField(max_length=50, null=True, blank=True)
+
+    status = models.CharField(
+        max_length=15,
+        choices=[
+            ('Pending', 'Pending'),
+            ('Rejected', 'Rejected'),
+            ('Approved', 'Approved')
+        ],
+        default='Pending'
+    )
 
     date_applied = models.DateField(auto_now_add=True)

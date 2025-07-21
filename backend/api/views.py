@@ -3,6 +3,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+from api.filters import ApplicationFilter
+
 
 from .models.address import Barangay
 from .models.disability import DisabilityType
@@ -26,6 +28,10 @@ def get_disability_types(request):
 
     return Response(serialized.data)
 
+@api_view(['GET'])
+def get_dashboard_data(request):
+    return
+
 # occupaton api
 class OccupationViewSet(ModelViewSet):
     queryset = Occupation.objects.all()
@@ -38,5 +44,18 @@ class DisabilityViewSet(ModelViewSet):
 
 # application api
 class ApplicationViewSet(ModelViewSet):
-    queryset = Application.objects.all()
+    # queryset = Application.objects.all().order_by('-id')
+    queryset = Application.objects.select_related(
+        'applicant__address__barangay',
+        'applicant__employment__occupation',
+        'applicant__id_reference',
+    ).prefetch_related(
+        'applicant__applicant_disabilities__disability__disability_type'
+    ).all()
+     
     serializer_class = ApplicationSerializer
+    filterset_class = ApplicationFilter
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.order_by('-date_applied')
