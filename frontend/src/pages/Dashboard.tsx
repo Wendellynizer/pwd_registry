@@ -8,7 +8,7 @@ function Dashboard() {
   return (
     <>
       {/* welcome */}
-      <p>Welcome NAME HERE!</p>
+      <p>Welcome <span className="font-bold">CSWDO</span>!</p>
 
       {/* card container */}
       <div className="flex gap-4 mt-5">

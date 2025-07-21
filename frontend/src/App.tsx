@@ -11,6 +11,10 @@ import TestPage from "./pages/Test/TestPage";
 import ApplicationProfile from "./pages/ApplicationProfile";
 import PWD from "./pages/PWD";
 import Map from "./pages/Map";
+import Disability from "./pages/Disability";
+import Personnel from "./pages/Personnel";
+import Analytics from "./pages/Analytics";
+import Reports from "./pages/Reports";
 
 function App() {
 
@@ -23,11 +27,11 @@ function App() {
 				<Route path="application" element={<Application />} />
 				<Route path="application/:applicationId" element={<ApplicationProfile />}/>
 				<Route path="pwd-form" element={<PWDForm />}/>
-				<Route path="disability" />
-				<Route path="personnel" />
+				<Route path="disability" element={<Disability />} />
+				<Route path="personnel" element={<Personnel />} />
 				<Route path="map" element={<Map />} />
-				<Route path="analytics" />
-				<Route path="reports" />
+				<Route path="analytics" element={<Analytics />} />
+				<Route path="reports" element={<Reports />} />
 				
 				{/* test only  */}
 				<Route path="test" element={<TestPage />} />
