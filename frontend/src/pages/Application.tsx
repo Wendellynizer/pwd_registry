@@ -97,7 +97,14 @@ const Application = () => {
           </TableHead>
 
           <TableBody>
-            {applications.map((app: any) => (
+            {applications.length == 0
+            ? ( <TableRow>
+                  <TableCell colSpan={8} className='text-center'>
+                      <span className="text-gray-400">No Application found.</span>
+                  </TableCell>
+              </TableRow>
+            )
+            : ( applications.map((app: any) => (
               <TableRow key={app.id}>
                 <TableCell>{app.registration_no}</TableCell>
                 <TableCell>{app.applicant.lastname}</TableCell>
@@ -122,7 +129,7 @@ const Application = () => {
                   </div>
                 </TableCell>
               </TableRow>
-            ))}
+            )))}
           </TableBody>
         </Table>
 

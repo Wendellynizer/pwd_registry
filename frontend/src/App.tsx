@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import TestPage from "./pages/Test/TestPage";
 import ApplicationProfile from "./pages/ApplicationProfile";
 import PWD from "./pages/PWD";
+import Map from "./pages/Map";
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
 				<Route path="pwd-form" element={<PWDForm />}/>
 				<Route path="disability" />
 				<Route path="personnel" />
-				<Route path="map" />
+				<Route path="map" element={<Map />} />
 				<Route path="analytics" />
 				<Route path="reports" />
 				
