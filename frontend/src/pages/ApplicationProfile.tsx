@@ -3,6 +3,7 @@ import { applicationCrud } from '../api/modules/application';
 import { Link, useParams } from 'react-router';
 import { ChevronLeft, SquarePen } from 'lucide-react';
 import AccordionItem from '../components/AccordionItem';
+import axios from 'axios';
 
 
 const ApplicationProfile = () => {
@@ -10,10 +11,38 @@ const ApplicationProfile = () => {
   const { applicationId } = useParams()
 
   const [application, setApplication] = useState<any>(null);
+  const [verdict, setVerdict] = useState('');
 
 	let father_name;
 	let mother_name;
 	let guardian_name;
+
+  //! change this please 
+  const onSubmit = async(e: any) => {
+    e.preventDefault();
+
+    const formData = {
+      verdict: verdict
+    }
+
+    try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/applications/${application.id}/decision/`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+      console.log('Success', response.data);
+      alert('Application processed successfully.');
+    } catch (error) {
+      console.error('Failed:', error.response?.data || error.message);
+      alert('Something went wrong.');
+    }
+  };
 
   useEffect(() => {
     // load the applicant data
@@ -41,6 +70,7 @@ const ApplicationProfile = () => {
 
   return (
     <div>
+      {/* back button */}
       <Link to='/application' className='block text-blue-500 mb-6 w-fit'>
         <div className='flex items-center gap-2'>
           <ChevronLeft />
@@ -48,8 +78,8 @@ const ApplicationProfile = () => {
         </div>
       </Link>
 
-
-      <div className='space-y-4'>
+      {/* application data */}
+      <div className='space-y-4 mb-12'>
         <Container>
           <div className='flex gap-4 items-center'>
             <div className="avatar">
@@ -214,6 +244,15 @@ const ApplicationProfile = () => {
 					</ColumnedContainer>
         </AccordionItem>
       </div>
+
+      <form onSubmit={onSubmit} method='POST'>
+        <input type="hidden" name='application_id' value={application.id} />
+        <div className='bg-white border-t-2 border-[#437057] fixed bottom-0 left-0 right-0 md:ms-64 p-2 flex justify-end gap-4'>
+          <Link to='/application' className='btn bg-white text-gray-500'>Cancel</Link>
+          <button type='submit' className='btn bg-error text-white' onClick={() => setVerdict('Rejected')}>Reject</button>
+          <button type='submit' className='btn bg-[#437057] text-white' onClick={() => setVerdict('Approved')}>Approve</button>
+        </div>
+      </form>
     </div>
   );
 }

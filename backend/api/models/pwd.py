@@ -8,12 +8,15 @@ class PWDInfo(models.Model):
         on_delete=models.CASCADE
     )
 
-    status = models.CharField(
-        max_length=20
-    )
+    # status = models.CharField(
+    #     max_length=20,
+    #     choices=[
+
+    #     ]
+    # )
 
     inactive_reason = models.CharField(max_length=255)
-    date_died = models.DateField()
+    date_died = models.DateField(null=True, blank=True)
 
     issued_pwd_id = models.CharField(max_length=255)
     issuance_date = models.DateField()
