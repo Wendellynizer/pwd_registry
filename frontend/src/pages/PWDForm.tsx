@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useFieldArray, useForm } from 'react-hook-form';
 import AccordionItem from '../components/AccordionItem';
 import Input from '../components/Inputs/Input';
@@ -157,26 +157,30 @@ const PWDForm = () => {
 
   return (
     <>
-      
-      <form onSubmit={handleSubmit(onSubmit)} className='pb-8'>
+      <p className='text-lg mb-4 font-semibold'>Registration Form</p>
+      <form onSubmit={handleSubmit(onSubmit)} method='POST' className='pb-8'>
         <AccordionItem title='Personal Information'>
           <InputContainer>
             <Input 
               label='Last Name'
               name='applicant.lastname'
               register={register}
+              placeholder='ex. Dela Cruz'
             />
 
             <Input 
               label='First Name'
               name='applicant.firstname'
               register={register}
+              placeholder='ex. Juan'
             />
 
             <Input 
               label='Middle Name'
               name='applicant.middlename'
               register={register}
+              required={false}
+              placeholder='ex. Magsayo'
             />
           </InputContainer>
 
@@ -185,6 +189,7 @@ const PWDForm = () => {
               label='Suffix'
               name='applicant.suffix'
               register={register}
+              placeholder='ex. Jr, Sr., III'
             />
 
             <Input 
@@ -609,7 +614,9 @@ const PWDForm = () => {
         </AccordionItem>
 
         {/* down button */}
-        <div className='bg-white border-t-2 border-[#437057] fixed bottom-0 left-0 right-0 md:ms-64 p-2 flex justify-end'>
+        <div className='bg-white border-t-2 border-[#437057] fixed bottom-0 left-0 right-0 md:ms-64 p-2 flex justify-end gap-4'>
+          <Link to='/application' className='btn bg-white text-gray-500'>Cancel</Link>
+  
           <button type='submit' className='btn bg-[#437057] text-white'>Create</button>
         </div>
       </form>

@@ -7,14 +7,22 @@
 interface RadioProps {
     label: string,
     name: string,
-    radioField: Record<string, string>,
     register: any
+    radioField: Record<string, string>,
+    required?: boolean
 }
 
-const Radio = ({label, name, radioField, register}: RadioProps) => {
+const Radio = ({label, name, radioField, required=true, register}: RadioProps) => {
   return (
     <div>
-        <label htmlFor={name}>{label}</label>
+        {label && 
+          <label htmlFor={name} className='mb-2 flex items-center'>{label} 
+          {required && 
+            <>
+            <span className="text-red-500 me-2">*</span>
+            <span className="text-xs text-gray-400">(required)</span>
+            </> }
+        </label>}
         
         <div className='flex gap-4 mt-3'>
             {Object.entries(radioField).map(([key, value]) => (

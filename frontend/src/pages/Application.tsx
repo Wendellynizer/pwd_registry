@@ -55,8 +55,9 @@ const Application = () => {
           <p className='text-xl font-semibold'>PWD Application</p>
         </div>
 
+        {/* create application button */}
         <div className='flex justify-end'>
-          <Link to='/pwd-form'
+          <Link to='/application/create'
           className='btn btn-sm bg-[#437057] text-white'>
             <ClipboardPlus size={20} />
             <p>Create Application</p>
@@ -64,28 +65,30 @@ const Application = () => {
         </div>
 
         {/* search and filter */}
-        <div className='flex justify-between items-center'>
-          {/* searchbar */}
-          <label className="input input-sm w-80">
-            <Search opacity={0.5} size={20} />
-            <input type="search" required placeholder="Search" />
-          </label>
-
-          {/* button */}
-          <div>
-            <button className='btn btn-sm border-gray-300 font-normal' onClick={toggleFilter}>
-              Filter
-              <ListFilter size={18}/>
-            </button>
-
-            {showFilter && <AdvanceFilter 
-              closeFilter={toggleFilter}
-              filters={filters}
-              setFilters={setFilters}
-              applyFilters={applyFilters}
-            />}
+        {/* search and filter */}
+          <div className='flex justify-between items-center'>
+            {/* searchbar */}
+            <label className="input input-sm w-80">
+              <Search opacity={0.5} size={20} />
+              <input type="search" required placeholder="Search" />
+            </label>
+  
+            {/* button */}
+            <div>
+              <button className='btn btn-sm border-gray-300 font-normal' onClick={toggleFilter}>
+                Filter
+                <ListFilter size={18}/>
+              </button>
+  
+              {showFilter && <AdvanceFilter 
+                closeFilter={toggleFilter} 
+                filters={filters}
+                setFilters={setFilters}
+                applyFilters={applyFilters}
+              />}
+            </div>
           </div>
-        </div>
+            
 
         <Table>
           <TableHead>
@@ -97,7 +100,14 @@ const Application = () => {
           </TableHead>
 
           <TableBody>
-            {applications.map((app: any) => (
+            {applications.length == 0
+            ? ( <TableRow>
+                  <TableCell colSpan={8} className='text-center'>
+                      <span className="text-gray-400">No Application found.</span>
+                  </TableCell>
+              </TableRow>
+            )
+            : ( applications.map((app: any) => (
               <TableRow key={app.id}>
                 <TableCell>{app.registration_no}</TableCell>
                 <TableCell>{app.applicant.lastname}</TableCell>
@@ -122,7 +132,7 @@ const Application = () => {
                   </div>
                 </TableCell>
               </TableRow>
-            ))}
+            )))}
           </TableBody>
         </Table>
 

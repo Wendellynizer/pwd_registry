@@ -1,3 +1,4 @@
+
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -8,9 +9,11 @@ from api.filters import ApplicationFilter
 
 from .models.address import Barangay
 from .models.disability import DisabilityType
+from .models.pwd import PWDInfo
 
 from .serializers.applicant_info_ser import *
 from .serializers.disability_ser import *
+from .serializers.pwd_ser import *
 
 # api for barangays
 @api_view(['GET'])
@@ -59,3 +62,8 @@ class ApplicationViewSet(ModelViewSet):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.order_by('-date_applied')
+
+
+class PWDInfoViewSet(ModelViewSet):
+    queryset = PWDInfo.objects.all()
+    serializer_class = PWDInfoSerializer
