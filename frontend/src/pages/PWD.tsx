@@ -10,11 +10,12 @@ import {
   TableRow,
   TableCell
 } from '../components/Table';
+import axios from 'axios';
 // import Input from '../components/Inputs/Input';
 
 const PWD = () => {
 
-  const [applications, setApplications] = useState([]);
+  const [pwds, setPwds] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
 
   const toggleFilter = () => {
@@ -25,6 +26,20 @@ const PWD = () => {
     'Issued PWD ID', 'ID Status', 'Last Name	', 'First Name',
     'Middle Name', 'Disability Type', 'Date Applied', 'Actions'
   ];
+
+  useEffect(() => {
+    const loadPWD = async() => {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/pwds/`
+      );
+
+      setPwds(response.data);
+
+      console.log(response.data);
+    }
+
+    loadPWD();
+  }, []);
 
   return (
     <>
@@ -70,33 +85,31 @@ const PWD = () => {
           </TableHead>
 
           <TableBody>
-            {applications.length === 0 ? (
+            {pwds.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={8} className='text-center'>
                         <span className="text-gray-400">No PWD found.</span>
                     </TableCell>
                 </TableRow>
             ) : (
-                applications.map((app: any) => (
-                    <TableRow key={app.id}>
-                        <TableCell>{app.registration_no}</TableCell>
-                        <TableCell>{app.applicant.lastname}</TableCell>
-                        <TableCell>{app.applicant.firstname}</TableCell>
-                        <TableCell>{app.applicant.middlename}</TableCell>
+                pwds.map((pwd: any) => (
+                    <TableRow key={pwd.id}>
+                        <TableCell>{pwd.issued_pwd_id}</TableCell>
+                        <TableCell>Active</TableCell>
+                        <TableCell>{pwd.application.applicant.firstname}</TableCell>
+                        <TableCell>{pwd.application.applicant.firstname}</TableCell>
+                        <TableCell>{pwd.application.applicant.middlename}</TableCell>
                         <TableCell>
                         <div className='space-x-2'>
-                            {app.applicant.applicant_disabilities.map((dis: any, index: any) => (
+                            {pwd.application.applicant.applicant_disabilities.map((dis: any, index: any) => (
                             <span className='badge badge-sm border-gray-200 rounded-sm' key={index}>{dis.disability_details.disability_type.disability_type_name}</span>
                             ))}
                         </div>
                         </TableCell>
-                        <TableCell>{app.date_applied}</TableCell>
-                        <TableCell>
-                        <TableBadge text={app.status} />
-                        </TableCell>
+                        <TableCell>{pwd.application.date_applied}</TableCell>
                         <TableCell>
                         <div className='flex justify-around items-center'>
-                            <Link to={`/application/`+app.id} className='text-green-600'><Eye /></Link>
+                            <Link to={`/application/`+pwd.id} className='text-green-600'><Eye /></Link>
                             <Link to='' className='text-blue-400'><SquarePen /></Link>
                             <Link to='' className='text-red-400'><Trash2 /></Link>
                         </div>
