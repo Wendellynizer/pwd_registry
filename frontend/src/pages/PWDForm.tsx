@@ -165,18 +165,22 @@ const PWDForm = () => {
               label='Last Name'
               name='applicant.lastname'
               register={register}
+              placeholder='ex. Dela Cruz'
             />
 
             <Input 
               label='First Name'
               name='applicant.firstname'
               register={register}
+              placeholder='ex. Juan'
             />
 
             <Input 
               label='Middle Name'
               name='applicant.middlename'
               register={register}
+              required={false}
+              placeholder='ex. Magsayo'
             />
           </InputContainer>
 
@@ -185,6 +189,7 @@ const PWDForm = () => {
               label='Suffix'
               name='applicant.suffix'
               register={register}
+              placeholder='ex. Jr, Sr., III'
             />
 
             <Input 

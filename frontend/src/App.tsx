@@ -7,7 +7,6 @@ import MainLayout from "./layout/MainLayout";
 import Application from "./pages/Application";
 import PWDForm from "./pages/PWDForm";
 import NotFound from "./pages/NotFound";
-import TestPage from "./pages/Test/TestPage";
 import ApplicationProfile from "./pages/ApplicationProfile";
 import PWD from "./pages/PWD";
 import Map from "./pages/Map";
@@ -29,14 +28,12 @@ function App() {
 				<Route path="application/:applicationId" element={<ApplicationProfile />}/>
 				<Route path="application/create" element={<PWDForm />}/>
 				<Route path="disability" element={<Disability />} />
+				<Route path="disability/create" element={<Disability />} />
 				<Route path="personnel" element={<Personnel />} />
 				<Route path="personnel/create" element={<PersonnelForm />} />
 				<Route path="map" element={<Map />} />
 				<Route path="analytics" element={<Analytics />} />
 				<Route path="reports" element={<Reports />} />
-				
-				{/* test only  */}
-				<Route path="test" element={<TestPage />} />
 			</Route>
 			<Route path="/*" element={<NotFound />} />
 		</Routes>
