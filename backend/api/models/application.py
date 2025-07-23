@@ -67,6 +67,7 @@ class Applicant(models.Model):
     )
 
     profile_image_path = models.CharField(max_length=255, null=True, blank=True)
+    # profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
     apparent_disability = models.CharField(
         max_length=3,
         choices=[

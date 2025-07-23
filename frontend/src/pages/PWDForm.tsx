@@ -173,7 +173,7 @@ const PWDForm = () => {
     <>
       <p className='text-lg mb-4 font-semibold'>Registration Form</p>
       <form onSubmit={handleSubmit(onSubmit)} method='POST' className='pb-8'>
-        <AccordionItem title='Profile'>
+        <AccordionItem title='Profile' opened={false}>
           <div className='flex flex-col'>
             <label htmlFor="" className='block mb-2'>Profile Picture</label>
             <div className="avatar">
