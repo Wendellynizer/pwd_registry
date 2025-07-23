@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router';
 import { ChevronLeft, SquarePen } from 'lucide-react';
 import AccordionItem from '../components/AccordionItem';
 import axios from 'axios';
+import { baseURL } from '../api';
 
 
 const ApplicationProfile = () => {
@@ -27,7 +28,8 @@ const ApplicationProfile = () => {
 
     try {
     const response = await axios.post(
-      `http://127.0.0.1:8000/api/applications/${application.id}/decision/`,
+      // `http://127.0.0.1:8000/api/applications/${application.id}/decision/`,
+      `${baseURL}applications/${application.id}/decision/`,
       formData,
       {
         headers: {

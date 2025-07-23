@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 #! must be changed in production
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.2']
 
 
 # Application definition
@@ -59,6 +59,8 @@ MIDDLEWARE = [
 #! change this in production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",      # React dev server
+    # "localhost",
+    "http://192.168.1.2:8000",
     # "https://yourfrontend.com",  # Production site
 ]
 CORS_ALLOW_ALL_ORIGINS = True  # ❗ Don't use this in production

@@ -10,7 +10,7 @@ from api.filters import ApplicationFilter
 
 from .models.address import Barangay
 from .models.disability import DisabilityType
-from .models.pwd import PWDInfo
+from .models.pwd import PWDInfo, StatusLog
 
 from .serializers.applicant_info_ser import *
 from .serializers.disability_ser import *
@@ -146,3 +146,7 @@ class ApplicationViewSet(ModelViewSet):
 class PWDInfoViewSet(ModelViewSet):
     queryset = PWDInfo.objects.all()
     serializer_class = PWDInfoSerializer
+
+class StatusLog(ModelViewSet):
+    queryset = StatusLog.objects.all()
+    serializer_class = StatusLogSerializer
