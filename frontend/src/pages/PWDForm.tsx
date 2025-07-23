@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router';
 import { useFieldArray, useForm } from 'react-hook-form';
 import AccordionItem from '../components/AccordionItem';
@@ -11,6 +11,8 @@ import { fetchBarangays } from '../api/modules/barangay';
 import { fetchOccupations } from '../api/modules/occupation';
 import { applicationCrud } from '../api/modules/application';
 import { disabilityCrud } from '../api/modules/disability';
+
+import defaultImage from '../assets/default.jpg';
 
 const PWDForm = () => {
 
@@ -113,6 +115,18 @@ const PWDForm = () => {
   const [occupations, setOccupations] = useState({});
   const [disabilitySelection, setDisabilitySelection] = useState({});
 
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewURL, setPreviewURL] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleProfileFileChange = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewURL(URL.createObjectURL(file));
+    }
+  };
+
   useEffect(() => {
     // fetch barangays
     const getBarangay = async() => {
@@ -159,6 +173,37 @@ const PWDForm = () => {
     <>
       <p className='text-lg mb-4 font-semibold'>Registration Form</p>
       <form onSubmit={handleSubmit(onSubmit)} method='POST' className='pb-8'>
+        <AccordionItem title='Profile'>
+          <div className='flex flex-col'>
+            <label htmlFor="" className='block mb-2'>Profile Picture</label>
+            <div className="avatar">
+              <div className="w-34 rounded">
+                <img src={previewURL || defaultImage} alt="Profile Preview" />
+              </div>
+            </div>
+          </div>
+          
+          <div className='space-x-2'>
+            <input 
+            className='file-input file-input-sm' 
+            type="file" 
+            accept="image/*"
+            onChange={handleProfileFileChange}
+            ref={fileInputRef}
+           />
+
+           <button type="button" className='btn btn-sm' onClick={(e: any) => {
+            setPreviewURL(null);
+            setSelectedImage(null);
+
+            if (fileInputRef.current) {
+              fileInputRef.current.value = null; // clear input field
+            }
+           }}>Clear</button>
+          </div>
+          
+        </AccordionItem>
+
         <AccordionItem title='Personal Information'>
           <InputContainer>
             <Input 
@@ -545,7 +590,24 @@ const PWDForm = () => {
           </InputContainer>
         </AccordionItem>
 
-        <AccordionItem title="Documents"></AccordionItem>
+        <AccordionItem title="Documents">
+          <InputContainer>
+              <div>
+                <label htmlFor="" className='mb-2 block'>Photocopy of Medical Certificate</label>
+                <input type="file" className='file-input file-input-sm' />
+              </div>
+
+              <div>
+                <label htmlFor="" className='mb-2 block'>Voters ID / Certification / National ID</label>
+                <input type="file" className='file-input file-input-sm' />
+              </div>
+
+              <div>
+                <label htmlFor="" className='mb-2 block'>Duly Accomplished Application Form</label>
+                <input type="file" className='file-input file-input-sm' />
+              </div>
+          </InputContainer>
+        </AccordionItem>
 
         <AccordionItem title="Processing Information">
           <Radio

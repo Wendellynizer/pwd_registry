@@ -12,7 +12,7 @@ admin.site.register([
     Barangay, Address, Occupation, Employment, DisabilityType,
     Disability, ApplicantDisability,
     IDReference, 
-    Applicant, Application, PWDInfo
+    Applicant, Application, PWDInfo, StatusLog
 ])
 # admin.site.register(Address)s
 

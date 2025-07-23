@@ -11,6 +11,7 @@ import {
   TableCell
 } from '../components/Table';
 import axios from 'axios';
+import { baseURL } from '../api';
 // import Input from '../components/Inputs/Input';
 
 const PWD = () => {
@@ -30,7 +31,7 @@ const PWD = () => {
   useEffect(() => {
     const loadPWD = async() => {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/pwds/`
+        `${baseURL}pwds/`
       );
 
       setPwds(response.data);
