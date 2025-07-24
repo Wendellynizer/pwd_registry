@@ -17,6 +17,7 @@ import Reports from "./pages/Reports";
 import PersonnelForm from "./pages/PersonnelForm";
 import ApplicationEditForm from "./pages/ApplicationEditForm";
 import PWDProfile from "./pages/PWDProfile";
+import DisabilityForm from "./pages/DisabilityForm";
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
 				<Route path="application/create" element={<PWDForm />}/>
 				<Route path="application/edit/:applicationId" element={<ApplicationEditForm />}/>
 				<Route path="disability" element={<Disability />} />
-				<Route path="disability/create" element={<Disability />} />
+				<Route path="disability/create" element={<DisabilityForm />} />
 				<Route path="personnel" element={<Personnel />} />
 				<Route path="personnel/create" element={<PersonnelForm />} />
 				<Route path="map" element={<Map />} />
