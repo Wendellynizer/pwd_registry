@@ -11,6 +11,10 @@ export const applicationCrud = {
         const reponse = await api.get('applications/'+id);
         return reponse.data;
     },
+    patch: async(data: any, id: any) => {
+        const response = await api.patch(`applications/${id}/` , data);
+        return response.data;
+    },
     create: async(data: any) => {
         const response = await api.post('applications/', data)
         return response.data;

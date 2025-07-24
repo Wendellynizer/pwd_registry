@@ -49,7 +49,12 @@ const Application = () => {
     loadApplications();
   }, []);
 
+  if(!applications) return <p>Loading</p>
+
+  // console.log(applications[0]);
+
   return (
+    
     <div className='p-5 space-y-4'>
       <div>
         <p className='text-xl font-semibold'>PWD Application</p>
@@ -128,7 +133,7 @@ const Application = () => {
                 <TableCell>
                   <div className='flex justify-around items-center'>
                     <Link to={`/application/`+app.id} className='text-green-600'><Eye /></Link>
-                    <Link to={'edit/'+app.id} className='text-blue-400'><SquarePen /></Link>
+                    <Link to={app.id+'/edit'} className='text-blue-400'><SquarePen /></Link>
                     <Link to='' className='text-red-400'><Trash2 /></Link>
                   </div>
                 </TableCell>

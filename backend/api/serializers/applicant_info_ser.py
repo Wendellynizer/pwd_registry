@@ -110,40 +110,37 @@ class ApplicantSerializer(serializers.ModelSerializer):
     
         return applicant
 
-    @transaction.atomic
     def update(self, instance, validated_data):
         address_data = validated_data.pop('address', None)
         employment_data = validated_data.pop('employment', None)
         id_reference_data = validated_data.pop('id_reference', None)
-        disabilities_data = validated_data.pop('applicant_disabilities', [])
+        disabilities_data = validated_data.pop('applicant_disabilities', None)  # allow None for PATCH
 
-        # Update Address
+        # Update address if present
         if address_data:
             for attr, value in address_data.items():
                 setattr(instance.address, attr, value)
             instance.address.save()
 
-        # Update Employment
+        # Update employment if present
         if employment_data:
             for attr, value in employment_data.items():
                 setattr(instance.employment, attr, value)
             instance.employment.save()
 
-        # Update ID Reference
+        # Update id_reference if present
         if id_reference_data:
             for attr, value in id_reference_data.items():
                 setattr(instance.id_reference, attr, value)
             instance.id_reference.save()
 
-        # Replace all disabilities
-        if disabilities_data:
-            # Clear old ones
+        # Replace disabilities only if provided
+        if disabilities_data is not None:
             instance.applicant_disabilities.all().delete()
-            # Create new ones
             for disability in disabilities_data:
                 ApplicantDisability.objects.create(applicant=instance, **disability)
 
-        # Update remaining fields of Applicant
+        # Update remaining fields of applicant
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
@@ -174,21 +171,19 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
         applicant = ApplicantSerializer().create(applicant_data)
 
-
         return Application.objects.create(applicant=applicant, **validated_data)
     
     @transaction.atomic
     def update(self, instance, validated_data):
         applicant_data = validated_data.pop('applicant', None)
 
-        # Update nested Applicant
         if applicant_data:
             ApplicantSerializer().update(instance.applicant, applicant_data)
 
-        # Update fields on Application
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
 
         return instance
+    
     

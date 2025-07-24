@@ -31,7 +31,7 @@ function App() {
 				<Route path="application" element={<Application />} />
 				<Route path="application/:applicationId" element={<ApplicationProfile />}/>
 				<Route path="application/create" element={<PWDForm />}/>
-				<Route path="application/edit/:applicationId" element={<ApplicationEditForm />}/>
+				<Route path="application/:applicationId/edit" element={<ApplicationEditForm />}/>
 				<Route path="disability" element={<Disability />} />
 				<Route path="disability/create" element={<DisabilityForm />} />
 				<Route path="personnel" element={<Personnel />} />
