@@ -70,7 +70,7 @@ class ApplicationViewSet(ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.order_by('-date_applied')
+        return qs.order_by('-status')
     
 
     #! helper only. please optimize and change this

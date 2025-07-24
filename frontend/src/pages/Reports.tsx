@@ -237,7 +237,7 @@ const Reports = () => {
           </Container>
         }
 
-        
+        <ReportComponent />
         
       </Container>
     </div>
@@ -256,4 +256,13 @@ const Container = ({children, className}: {children: React.ReactNode, className?
 
 const ContainerTitle = ({text, className}: {text: string, className?: string}) => {
   return <p className={`font-medium ${className}`}>{text}</p>;
+}
+
+
+export const ReportComponent = () => {
+  return (
+    <div>
+      
+    </div>
+  )
 }

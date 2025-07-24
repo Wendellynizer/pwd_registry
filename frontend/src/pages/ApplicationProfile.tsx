@@ -74,7 +74,7 @@ const ApplicationProfile = () => {
   return (
     <div className='p-5'>
       {/* back button */}
-      <Link to='/application' className='block text-blue-500 mb-6 w-fit'>
+      <Link to={'/application'} className='block text-blue-500 mb-6 w-fit'>
         <div className='flex items-center gap-2'>
           <ChevronLeft />
           Back
@@ -108,7 +108,7 @@ const ApplicationProfile = () => {
             </div>
 
 						<div className='border px-2 py-1 rounded-sm border-gray-400'>
-							<Link to=''>
+							<Link to={'edit'}>
 								<div className='flex gap-2 text-amber-600'>
 									<p>Edit</p>
 									<SquarePen />
