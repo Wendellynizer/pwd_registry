@@ -45,7 +45,7 @@ const PersonnelForm = () => {
     }, [])
 
     return (
-    <>
+    <div className='p-5'>
         <p className='text-xl font-semibold mb-4'>Create Personnel</p>
 
         <div className='border border-base-300 rounded p-8'>
@@ -55,18 +55,21 @@ const PersonnelForm = () => {
                         label='First Name'
                         name='firstname'
                         register={register}
+                        placeholder='ex. Juan'
                     />
 
                     <Input 
                         label='Middle Name'
                         name='lastname'
                         register={register}
+                        placeholder='ex. Magsayo'
                     />
 
                     <Input 
                         label='Last Name'
                         name='middlename'
                         register={register}
+                        placeholder='ex. Dela Cruz'
                     />
 
                     <Input 
@@ -118,7 +121,7 @@ const PersonnelForm = () => {
             </form>
         </div>
         
-    </>
+    </div>
     )
 }
 

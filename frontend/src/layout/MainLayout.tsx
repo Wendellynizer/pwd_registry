@@ -10,7 +10,7 @@ const MainLayout = () => {
       <main className="flex-1 sm:ml-66 h-screen overflow-hidden">
         <Navbar title="Dashboard" />
         
-        <div className="p-5 h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="h-[calc(100vh-4rem)] overflow-y-auto bg-gray-50">
           <Outlet />
         </div>
       </main>

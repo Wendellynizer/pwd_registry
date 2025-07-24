@@ -2,8 +2,8 @@ import React from 'react'
 
 const Reports = () => {
   return (
-    <div className='space-y-4'>
-      <p className='text-lg font-semibold'>Registration Form</p>
+    <div className='p-5 space-y-4'>
+      <p className='text-lg font-semibold'>Reports</p>
 
       <Container>
         <ContainerTitle text='Select Type of Report' />

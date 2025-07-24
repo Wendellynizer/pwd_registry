@@ -72,7 +72,7 @@ const ApplicationProfile = () => {
   } 
 
   return (
-    <div>
+    <div className='p-5'>
       {/* back button */}
       <Link to='/application' className='block text-blue-500 mb-6 w-fit'>
         <div className='flex items-center gap-2'>
