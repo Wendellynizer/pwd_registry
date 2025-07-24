@@ -116,7 +116,7 @@ const Application = () => {
                 <TableCell>
                   <div className='space-x-2'>
                     {app.applicant.applicant_disabilities.map((dis: any, index: any) => (
-                      <span className='badge badge-sm border-gray-200 rounded-sm' key={index}>{dis.disability_details.disability_type.disability_type_name}</span>
+                      <span className='badge badge-sm border-gray-200 rounded-sm' key={index}>{dis.disability_details.disability_type_name}</span>
                     ))}
                   </div>
                 </TableCell>

@@ -165,7 +165,7 @@ const ApplicationProfile = () => {
               
               <div className='space-y-2'>
                 {application.applicant.applicant_disabilities.map((dis:any, index:any) => (
-                  <p key={index}>{dis.disability_details.disability_type.disability_type_name}</p>
+                  <p key={index}>{dis.disability_details.disability_type_name}</p>
                 ))}
               </div>
             </div>

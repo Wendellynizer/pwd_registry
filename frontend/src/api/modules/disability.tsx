@@ -10,3 +10,8 @@ export const disabilityCrud = {
         return response.data;
     },
 }
+
+// export const fetchBarangays = async() => {
+//     const response = await api.get('/');
+//     return (response).data;
+// }

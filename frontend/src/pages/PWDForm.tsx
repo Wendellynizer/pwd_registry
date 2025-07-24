@@ -105,6 +105,39 @@ const PWDForm = () => {
     navigate('/application');
   }
 
+  const [disability, setDisability] = useState('');
+  const [disabilityName, setDisabilityName] = useState('');
+
+  const createDisability = async() => {
+    const disabilityData = {
+      disability_type: disability,
+      disability_name: disabilityName
+    };
+
+    try {
+      const reponse = await disabilityCrud.create(disabilityData);
+      alert('Disability Added')
+    } catch(error) {
+      alert('Error Creating')
+    }
+
+    const getDisabilities = async() => {
+      const response = await disabilityCrud.getAll();
+      
+      const disabilityObject = Object.fromEntries(
+        response.map((item: any) => [item.id, item.disability_name])
+      );
+      
+      setDisabilitySelection(disabilityObject);
+    }
+
+    getDisabilities();
+  }
+
+  const changeDisabilityValues = async(id: any) => {
+
+  }
+
   // use for dynamic fields in disabilities
   const {fields, append, remove} = useFieldArray({
     control,
@@ -292,17 +325,20 @@ const PWDForm = () => {
               <div>
                 <label htmlFor="" className='block text text-xs mb-2'>Type</label>
                 <Dropdown name="test" options={{
-                  1: 'Speech',
-                  2: 'Learning',
-                  3: 'Intellectual',
+                  7: 'Speech',
+                  3: 'Learning',
+                  2: 'Intellectual',
                   4: 'Mental',
-                  5: 'Visual',
+                  8: 'Visual',
                   6: 'Psychosocial',
-                  7: 'Physical',
-                  8: 'Hearing',
+                  5: 'Physical',
+                  1: 'Hearing',
                   9: 'Cancer',
                   10: 'Rare Disease',
-                }} initialValue="Select Category" expand={true} />
+                }} 
+                initialValue="Select Category" 
+                expand={true} 
+                onChange={(e) => setDisability(e.target.value)}/>
               </div>
               
               <div className="col-span-3">
@@ -311,12 +347,13 @@ const PWDForm = () => {
                   className='input input-sm w-full'
                   type="text"  
                   placeholder='(ex. Amputee)'
+                  onChange={(e) => setDisabilityName(e.target.value)}
                 />
               </div>
             </div>
 
             <div className='mt-6'>
-              <Button label="Save Disability"  />
+              <Button label="Save Disability" onClick={createDisability} />
             </div>
           </div>
 

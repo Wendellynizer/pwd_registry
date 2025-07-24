@@ -37,7 +37,7 @@ const Disability = () => {
 
 			{/* create application button */}
         <div className='flex justify-end'>
-          <Link to='/personnel/create'
+          <Link to='create'
           className='btn btn-sm bg-[#437057] text-white'>
             <PlusIcon size={20} />
             <p>Add Disability</p>
@@ -78,12 +78,11 @@ const Disability = () => {
           {disabilities.map((dis: any, index: any) => (
             <TableRow key={index}>
               <TableCell>{dis.id}</TableCell>
-              <TableCell>{dis.disability_type.disability_type_name}</TableCell>
+              <TableCell>{dis.disability_type_name}</TableCell>
               <TableCell>{dis.disability_name}</TableCell>
               <TableCell>
                 <div className='flex justify-start gap-4 items-center'>
-                  <Link to='' className='text-green-600'><Eye /></Link>
-                  <Link to='' className='text-blue-400'><SquarePen /></Link>
+                  <Link to={'edit/'+dis.id} className='text-blue-400'><SquarePen /></Link>
                   <Link to='' className='text-red-400'><Trash2 /></Link>
                 </div>
 						</TableCell>
