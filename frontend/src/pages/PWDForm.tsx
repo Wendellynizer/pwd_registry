@@ -135,7 +135,17 @@ const PWDForm = () => {
   }
 
   const changeDisabilityValues = async(id: any) => {
+    try {
+      const data = await disabilityCrud.getAllByType(id);
 
+      const disabilityObject = Object.fromEntries(
+        data.map((item: any) => [item.id, item.disability_name])
+      );
+      
+      setDisabilitySelection(disabilityObject);
+    } catch(error) {
+      alert('Error Finding')
+    }
   }
 
   // use for dynamic fields in disabilities
@@ -338,7 +348,10 @@ const PWDForm = () => {
                 }} 
                 initialValue="Select Category" 
                 expand={true} 
-                onChange={(e) => setDisability(e.target.value)}/>
+                onChange={(e) => {
+                  setDisability(e.target.value)
+                  changeDisabilityValues(e.target.value)}
+                }/>
               </div>
               
               <div className="col-span-3">

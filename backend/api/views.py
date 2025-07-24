@@ -45,6 +45,13 @@ class DisabilityViewSet(ModelViewSet):
     queryset = Disability.objects.all()
     serializer_class = DisabilitySerializer
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        disability_type = self.request.query_params.get('type_id')
+        if disability_type is not None:
+            queryset = queryset.filter(disability_type=disability_type)
+        return queryset
+
 
 
 # application api
