@@ -98,7 +98,7 @@ const PWD = () => {
                       <TableRow key={pwd.id}>
                           <TableCell>{pwd.issued_pwd_id}</TableCell>
                           <TableCell ><span className='text-red-500'>Active</span></TableCell>
-                          <TableCell>{pwd.application.applicant.firstname}</TableCell>
+                          <TableCell>{pwd.application.applicant.lastname}</TableCell>
                           <TableCell>{pwd.application.applicant.firstname}</TableCell>
                           <TableCell>{pwd.application.applicant.middlename}</TableCell>
                           <TableCell>
