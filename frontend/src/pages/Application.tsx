@@ -10,6 +10,7 @@ import {
   TableRow,
   TableCell
 } from '../components/Table';
+import Container from '../components/Container';
 // import Input from '../components/Inputs/Input';
 
 const Application = () => {
@@ -49,12 +50,12 @@ const Application = () => {
   }, []);
 
   return (
-    <>
-      <div className='space-y-4'>
-        <div>
-          <p className='text-xl font-semibold'>PWD Application</p>
-        </div>
+    <div className='p-5 space-y-4'>
+      <div>
+        <p className='text-xl font-semibold'>PWD Application</p>
+      </div>
 
+      <Container className='space-y-4'>
         {/* create application button */}
         <div className='flex justify-end'>
           <Link to='/application/create'
@@ -64,32 +65,31 @@ const Application = () => {
           </Link>
         </div>
 
-        {/* search and filter */}
-        {/* search and filter */}
-          <div className='flex justify-between items-center'>
-            {/* searchbar */}
-            <label className="input input-sm w-80">
-              <Search opacity={0.5} size={20} />
-              <input type="search" required placeholder="Search" />
-            </label>
-  
-            {/* button */}
-            <div>
-              <button className='btn btn-sm border-gray-300 font-normal' onClick={toggleFilter}>
-                Filter
-                <ListFilter size={18}/>
-              </button>
-  
-              {showFilter && <AdvanceFilter 
-                closeFilter={toggleFilter} 
-                filters={filters}
-                setFilters={setFilters}
-                applyFilters={applyFilters}
-              />}
-            </div>
-          </div>
-            
 
+        {/* search and filter */}
+        <div className='flex justify-between items-center'>
+          {/* searchbar */}
+          <label className="input input-sm w-80">
+            <Search opacity={0.5} size={20} />
+            <input type="search" required placeholder="Search" />
+          </label>
+  
+          {/* button */}
+          <div className='relative'>
+            <button className='btn btn-sm border-gray-300 font-normal' onClick={toggleFilter}>
+              Filter
+              <ListFilter size={18}/>
+            </button>
+  
+            {showFilter && <AdvanceFilter 
+              closeFilter={toggleFilter} 
+              filters={filters}
+              setFilters={setFilters}
+              applyFilters={applyFilters}
+            />}
+          </div>
+        </div>
+            
         <Table>
           <TableHead>
             <TableRow>
@@ -98,7 +98,7 @@ const Application = () => {
               ))}
             </TableRow>
           </TableHead>
-
+  
           <TableBody>
             {applications.length == 0
             ? ( <TableRow>
@@ -135,34 +135,34 @@ const Application = () => {
             )))}
           </TableBody>
         </Table>
-
+  
         {/* Pagination */}
         {/* should i add pagination component? */}
-       <div className='mt-4 flex justify-between'>
-         {/* record count */}
-         <p className='text-sm'>Showing <span className='font-semibold'>1 - 3</span>  of <span className='font-semibold'>3</span> Entries</p>
-
-         <div className='flex items-center gap-4'>
-           {/* rows per page */}
-           <div className='flex items-center gap-2'>
-             <p className='text-sm'>Row per page</p>
-
-             <select defaultValue="10" className="select select-sm w-fit">
-               <option value={10}>10</option>
-               <option value={25}>25</option>
-             </select>
-           </div>
-
-           {/* pagination buttons */}
-           <div className="join gap-2">
-             <button className="join-item btn btn-sm">{'<'}</button>
-             <button className="join-item bg-[#437057] border-[#437057] text-white btn btn-sm btn-active">1</button>
-             <button className="join-item btn btn-sm">{'>'}</button>
-           </div>
-         </div>
-       </div>
-      </div>
-    </>
+        <div className='mt-4 flex justify-between'>
+          {/* record count */}
+          <p className='text-sm'>Showing <span className='font-semibold'>1 - 3</span>  of <span className='font-semibold'>3</span> Entries</p>
+  
+          <div className='flex items-center gap-4'>
+            {/* rows per page */}
+            <div className='flex items-center gap-2'>
+              <p className='text-sm'>Row per page</p>
+  
+              <select defaultValue="10" className="select select-sm w-fit">
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+              </select>
+            </div>
+  
+            {/* pagination buttons */}
+            <div className="join gap-2">
+              <button className="join-item btn btn-sm">{'<'}</button>
+              <button className="join-item bg-[#437057] border-[#437057] text-white btn btn-sm btn-active">1</button>
+              <button className="join-item btn btn-sm">{'>'}</button>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
   )
 }
 
@@ -201,7 +201,7 @@ const AdvanceFilter = ({
   };
 
   return (
-    <div className='bg-white border border-gray-300 rounded-sm px-2 pt-2 pb-4 text-sm absolute top-52 right-5 z-10 transition-all w-90'>
+    <div className='bg-white border border-gray-300 rounded-sm px-2 pt-2 pb-4 text-sm absolute top-10 right-0 z-10 transition-all w-90'>
       <div className='flex justify-between items-center px-2 mb-6'>
         <p>Advance Filter</p>
         <div className='flex items-center gap-4'>

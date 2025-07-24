@@ -157,8 +157,19 @@ const Analytics = () => {
     datasets: [
       {
         label: 'Count',
-        data: [231, 234, 231, 234, 231, 234, 231, 234, 231, 200],
-        backgroundColor: 'rgba(255, 99, 132, 1)',
+        data: [134, 201, 170, 234, 352, 110, 201, 290, 120, 97],
+        backgroundColor: [
+          '#FFD700',
+          '#008080',
+          '#00BFFF',
+          '#800080',
+          '#FF4500',
+          '#8A2BE2',
+          '#FFA500',
+          '#4B0082',
+          '#FF69B4',
+          '#008B8B',
+        ],
         borderRadius: 2,
         stack: 'bar',
         barPercentage: 0.7
@@ -171,8 +182,14 @@ const Analytics = () => {
     datasets: [
       {
         label: 'Count',
-        data: [231, 234, 231, 234, 231, 234, 231, 234, 231, 200],
-        backgroundColor: 'rgba(255, 99, 132, 1)',
+        data: [80, 120, 100, 172, 200],
+        backgroundColor: [
+          '#ADD8E6',
+          '#6495ED',
+          '#32CD32',
+          '#4682B4',
+          '#708090',
+        ],
         borderRadius: 2,
         stack: 'bar',
         barPercentage: 0.7
@@ -186,7 +203,7 @@ const Analytics = () => {
       {
         label: 'Count',
         data: [180, 210, 195, 205, 150, 170, 140, 100, 165, 90, 130, 125, 160, 115, 145, 135, 155, 120, 175, 185, 110, 95, 105],
-        backgroundColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: '#437057',
         borderRadius: 2,
         stack: 'bar',
         barPercentage: 0.7
@@ -452,7 +469,7 @@ const Analytics = () => {
   }, []);
 
   return (
-    <div className='space-y-4'>
+    <div className='p-5 space-y-4'>
       <div>
         <p className='text-xl font-semibold'>Analytics</p>
         <p className='text-sm mt-2 text-gray-500'>Track PWD Registry Trends</p>

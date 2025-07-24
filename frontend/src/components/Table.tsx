@@ -1,6 +1,6 @@
 export const Table = ({children}: {children: any}) => {
   return (
-    <div className="overflow-x-auto rounded-sm border border-base-content/5 bg-base-100">
+    <div className="overflow-x-auto rounded-sm border border-gray-300 bg-base-100">
         <table className="table table-sm table-zebra">
             {children}
         </table>

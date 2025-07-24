@@ -8,7 +8,7 @@ const Disability = () => {
 
   const header = [
       'No.', 'Disability Type',  'Name', 'Actions'
-    ]
+  ]
   
   const [showFilter, setShowFilter] = useState(false);
     
@@ -30,7 +30,7 @@ const Disability = () => {
   }, []);
     
   return (
-    <div className='space-y-4'>
+    <div className='p-5 space-y-4'>
 			<div>
         <p className='text-xl font-semibold'>Disabilities</p>
       </div>

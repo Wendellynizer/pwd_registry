@@ -27,7 +27,7 @@ const Personnel = () => {
 	}, [])
 
   return (
-    <div className='space-y-4'>
+    <div className='p-5 space-y-4'>
 			<div>
         <p className='text-xl font-semibold'>Personnel</p>
       </div>

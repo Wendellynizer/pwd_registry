@@ -11,6 +11,7 @@ interface DropdownProps {
     options: Record<string, string>,
     initialValue?: string
     expand?: boolean,
+    required?: boolean,
 		value?: string
     register?: UseFormRegister<any>,
 		onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -25,13 +26,21 @@ const Dropdown = ({
 		value, 
 		onChange,
 		expand=false,
+    required=true
 }: DropdownProps) => {
 
 	const isControlled = typeof value !== 'undefined' && typeof onChange === 'function';
 
   return (
     <div className={`flex flex-col ${expand ? 'flex-1' : ''}`}>
-        {label && <label htmlFor={name} className="mb-2">{label}</label>}
+        {label && 
+          <label htmlFor={name} className='mb-2 flex items-center'>{label} 
+          {required && 
+            <>
+            <span className="text-red-500 me-2">*</span>
+            <span className="text-xs text-gray-400">(required)</span>
+            </> }
+        </label>}
 
         <select 
 						className='select select-sm px-2 w-full' 
@@ -44,7 +53,7 @@ const Dropdown = ({
 						}				
             onChange={onChange}		
         >
-          <option>{initialValue}</option>
+          <option value={initialValue} disabled>{initialValue}</option>
             
           {Object.entries(options).map(([key, value]) => (
               <option key={key} value={key}>{value}</option>

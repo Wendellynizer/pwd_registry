@@ -5,6 +5,7 @@ import { ChevronLeft, SquarePen } from 'lucide-react';
 import AccordionItem from '../components/AccordionItem';
 import axios from 'axios';
 import { baseURL } from '../api';
+import defaultImage from '../assets/default.jpg';
 
 
 const ApplicationProfile = () => {
@@ -71,7 +72,7 @@ const ApplicationProfile = () => {
   } 
 
   return (
-    <div>
+    <div className='p-5'>
       {/* back button */}
       <Link to='/application' className='block text-blue-500 mb-6 w-fit'>
         <div className='flex items-center gap-2'>
@@ -86,7 +87,7 @@ const ApplicationProfile = () => {
           <div className='flex gap-4 items-center'>
             <div className="avatar">
               <div className="w-24 rounded-xs">
-                <img src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" />
+                <img src={defaultImage} />
               </div>
             </div>
   
@@ -222,8 +223,12 @@ const ApplicationProfile = () => {
 					</ColumnedContainer>
         </AccordionItem>
 
-        <AccordionItem title='Documents'>
-
+        <AccordionItem title='Documents' opened={false}>
+          <ColumnedContainer>
+            <DataContainer label='Photocopy of Medical Certificate' value="-" />
+            <DataContainer label='Voters ID / Certification / National ID' value="-" />
+            <DataContainer label='Duly Accomplished Application Form' value="-" />
+          </ColumnedContainer>
         </AccordionItem>
 
         <AccordionItem title='Processing Information'>

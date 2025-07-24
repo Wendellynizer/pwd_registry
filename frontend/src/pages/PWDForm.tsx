@@ -115,6 +115,8 @@ const PWDForm = () => {
   const [occupations, setOccupations] = useState({});
   const [disabilitySelection, setDisabilitySelection] = useState({});
 
+  const [otherSelected, setOtherSelected] = useState(false);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewURL, setPreviewURL] = useState(null);
   const fileInputRef = useRef(null);
@@ -126,6 +128,10 @@ const PWDForm = () => {
       setPreviewURL(URL.createObjectURL(file));
     }
   };
+
+  const otherOccupationSelected = () => {
+
+  }
 
   useEffect(() => {
     // fetch barangays
@@ -169,13 +175,17 @@ const PWDForm = () => {
     getDisabilities();
   }, []);
 
+  useEffect(() => {
+
+  }, []);
+
   return (
-    <>
+    <div className='p-5'>
       <p className='text-lg mb-4 font-semibold'>Registration Form</p>
       <form onSubmit={handleSubmit(onSubmit)} method='POST' className='pb-8'>
-        <AccordionItem title='Profile'>
+        <AccordionItem title='Profile' opened={false}>
           <div className='flex flex-col'>
-            <label htmlFor="" className='block mb-2'>Profile Picture</label>
+            <label htmlFor="" className='block mb-2 text-gray-400'>Add a Profile Picture</label>
             <div className="avatar">
               <div className="w-34 rounded">
                 <img src={previewURL || defaultImage} alt="Profile Preview" />
@@ -276,9 +286,11 @@ const PWDForm = () => {
         </AccordionItem>
 
         <AccordionItem title='Disability Information'>
+          <p className='mb-2 text-gray-400'>(If disability is not available, add it here.)</p>
           <div className="flex gap-4 items-center">
             <div className="grow grid grid-cols-4 gap-4">
-              {/* <div>
+              <div>
+                <label htmlFor="" className='block text text-xs mb-2'>Type</label>
                 <Dropdown name="test" options={{
                   1: 'Speech',
                   2: 'Learning',
@@ -291,18 +303,24 @@ const PWDForm = () => {
                   9: 'Cancer',
                   10: 'Rare Disease',
                 }} initialValue="Select Category" expand={true} />
-              </div> */}
+              </div>
               
               <div className="col-span-3">
-                {/* <Input name="" placeholder="(e.g. Amputation)" register={register} /> */}
+                <label htmlFor="" className='block text text-xs mb-2'>Disability Name</label>
+                <input 
+                  className='input input-sm w-full'
+                  type="text"  
+                  placeholder='(ex. Amputee)'
+                />
               </div>
             </div>
 
-            <div>
-              <Button label="Save Disability" />
+            <div className='mt-6'>
+              <Button label="Save Disability"  />
             </div>
           </div>
 
+          <p className='font-medium mb-2'>Disabilities</p>
           {fields.map((field, index) => (
             <DisabilityContainer 
               key={field.id}
@@ -325,6 +343,7 @@ const PWDForm = () => {
               label="House No. and Street"
               name="applicant.address.street_address"
               register={register}
+              placeholder='ex. Purok 3B'
             />
 
             <Dropdown
@@ -372,12 +391,14 @@ const PWDForm = () => {
               label="Mobile No."
               name="applicant.mobile_no"
               register={register}
+              placeholder='ex. 09123456789'
             />
             <Input
               label="Email"
               name="applicant.email"
               type="email"
               register={register}
+              placeholder='ex. juan@gmail.com'
             />
           </InputContainer>
         </AccordionItem>
@@ -450,6 +471,7 @@ const PWDForm = () => {
               label="Other Occupation"
               name="applicant.employment.other_occupation"
               register={register}
+              disabled={!otherSelected}
             />
           </InputContainer>
         </AccordionItem>
@@ -626,6 +648,7 @@ const PWDForm = () => {
               label="Accomplished by Full Name"
               name="accomplished_by_name"
               register={register}
+              placeholder='ex. Juan Dela Cruz'
             />
           </InputContainer>
 
@@ -635,11 +658,13 @@ const PWDForm = () => {
               label="Full Name"
               name="physician_name"
               register={register}
+              placeholder='ex. Juan Dela Cruz'
             />
             <Input
               label="License No."
               name="physician_license_no"
               register={register}
+              
             />
           </InputContainer>
 
@@ -648,16 +673,19 @@ const PWDForm = () => {
               label="Processing Officer"
               name="processing_officer"
               register={register}
+              placeholder='ex. Juan Dela Cruz'
             />
             <Input
               label="Approving Officer"
               name="approving_officer"
               register={register}
+              placeholder='ex. Juan Dela Cruz'
             />
             <Input
               label="Encoder"
               name="encoder"
               register={register}
+              placeholder='ex. Juan Dela Cruz'
             />
           </InputContainer>
 
@@ -666,6 +694,7 @@ const PWDForm = () => {
               label="Name of Reporting Unit"
               name="reporting_unit"
               register={register}
+              placeholder='PDAO'
             />
             <Input
               label="Control No."
@@ -682,7 +711,7 @@ const PWDForm = () => {
           <button type='submit' className='btn bg-[#437057] text-white'>Create</button>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 
