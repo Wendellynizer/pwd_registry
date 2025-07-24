@@ -15,6 +15,8 @@ import Personnel from "./pages/Personnel";
 import Analytics from "./pages/Analytics";
 import Reports from "./pages/Reports";
 import PersonnelForm from "./pages/PersonnelForm";
+import ApplicationEditForm from "./pages/ApplicationEditForm";
+import PWDProfile from "./pages/PWDProfile";
 
 function App() {
 
@@ -24,9 +26,11 @@ function App() {
 			<Route path="/" element={<MainLayout />}>
 				<Route path="" element={<Dashboard />} />
 				<Route path="pwd" element={<PWD />} />
+				<Route path="pwd/:pwdId" element={<PWDProfile />} />
 				<Route path="application" element={<Application />} />
 				<Route path="application/:applicationId" element={<ApplicationProfile />}/>
 				<Route path="application/create" element={<PWDForm />}/>
+				<Route path="application/edit/:applicationId" element={<ApplicationEditForm />}/>
 				<Route path="disability" element={<Disability />} />
 				<Route path="disability/create" element={<Disability />} />
 				<Route path="personnel" element={<Personnel />} />

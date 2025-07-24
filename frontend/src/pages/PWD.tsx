@@ -111,7 +111,7 @@ const PWD = () => {
                           <TableCell>{pwd.application.date_applied}</TableCell>
                           <TableCell>
                           <div className='flex justify-around items-center'>
-                              <Link to={`/application/`+pwd.id} className='text-green-600'><Eye /></Link>
+                              <Link to={`/pwd/`+pwd.id} className='text-green-600'><Eye /></Link>
                               <Link to='' className='text-blue-400'><SquarePen /></Link>
                               <Link to='' className='text-red-400'><Trash2 /></Link>
                           </div>
