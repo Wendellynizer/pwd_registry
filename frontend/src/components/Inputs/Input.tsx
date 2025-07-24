@@ -27,7 +27,8 @@ const Input = ({type='text', label, name, defaultValue, disabled=false, required
           id={name}
           type={type}
           {...register(name)}
-          defaultValue={defaultValue}
+          // defaultValue={defaultValue}
+          // defaultValue={type != 'text'? '' : defaultValue}
           disabled={disabled}
           placeholder={placeholder}
         />

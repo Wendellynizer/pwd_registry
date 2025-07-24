@@ -150,3 +150,10 @@ class PWDInfoViewSet(ModelViewSet):
 class StatusLog(ModelViewSet):
     queryset = StatusLog.objects.all()
     serializer_class = StatusLogSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        pwd = self.request.query_params.get('pwd_id')
+        if pwd is not None:
+            queryset = queryset.filter(pwd=pwd)
+        return queryset
