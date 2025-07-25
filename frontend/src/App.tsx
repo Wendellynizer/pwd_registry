@@ -18,6 +18,7 @@ import PersonnelForm from "./pages/PersonnelForm";
 import ApplicationEditForm from "./pages/ApplicationEditForm";
 import PWDProfile from "./pages/PWDProfile";
 import DisabilityForm from "./pages/DisabilityForm";
+import ReportPage from "./components/invoices/ReportPage";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
 				<Route path="analytics" element={<Analytics />} />
 				<Route path="reports" element={<Reports />} />
 			</Route>
+			<Route path="reports/:reportId" element={<ReportPage />} />
 			<Route path="/*" element={<NotFound />} />
 		</Routes>
 	);
