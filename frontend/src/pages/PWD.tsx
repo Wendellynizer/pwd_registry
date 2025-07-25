@@ -72,6 +72,7 @@ const PWD = () => {
                 Sort
                 <ArrowDownUp size={18}/>
               </button>
+              
               <button className='btn btn-sm border-gray-300 font-normal' onClick={toggleFilter}>
                 Filter
                 <ListFilter size={18}/>
