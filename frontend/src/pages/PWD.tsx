@@ -1,4 +1,4 @@
-import { ClipboardPlus, Eye, ListFilter, Search, SquarePen, Trash2, X } from 'lucide-react';
+import { ArrowDownUp, ClipboardPlus, Eye, ListFilter, Search, SquarePen, Trash2, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { applicationCrud } from '../api/modules/application';
@@ -68,6 +68,10 @@ const PWD = () => {
 
             {/* button */}
             <div className='relative'>
+              <button className='btn btn-sm border-gray-300 font-normal me-2' >
+                Sort
+                <ArrowDownUp size={18}/>
+              </button>
               <button className='btn btn-sm border-gray-300 font-normal' onClick={toggleFilter}>
                 Filter
                 <ListFilter size={18}/>
