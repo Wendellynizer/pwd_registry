@@ -1,5 +1,5 @@
 import React from "react";
-import CustomContainer from "../CustomContainer";
+import CustomContainer from "../custom/CustomContainer";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,

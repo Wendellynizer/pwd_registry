@@ -8,7 +8,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import CustomContainer from "../CustomContainer";
+import CustomContainer from "../custom/CustomContainer";
 
 ChartJS.register(
   LineElement,
