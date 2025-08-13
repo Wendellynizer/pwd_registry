@@ -21,7 +21,21 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+     /* for absolute importing */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@contexts/*": ["contexts/*"],
+      "@hooks/*": ["hooks/*"],
+      "@layouts/*": ["layouts/*"],
+      "@pages/*": ["pages/*"],
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"],
+    }
   },
   "include": ["src"]
 }

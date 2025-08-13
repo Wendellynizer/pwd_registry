@@ -1,4 +1,4 @@
-import CustomContainer from "../CustomContainer";
+import CustomContainer from "../custom/CustomContainer";
 import { Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
