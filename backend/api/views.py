@@ -16,7 +16,8 @@ from .serializers.applicant_info_ser import *
 from .serializers.disability_ser import *
 from .serializers.pwd_ser import *
 
-# api for barangays
+# FUNCTION BASE VIEWS
+# fetch barangays
 @api_view(['GET'])
 def get_barangays(request):
     entries = Barangay.objects.all().order_by('barangay_name')
@@ -24,7 +25,7 @@ def get_barangays(request):
     
     return Response(serialized.data)
 
-# api for disability types
+# fetch disability types
 @api_view(['GET'])
 def get_disability_types(request):
     entries = DisabilityType.objects.all().order_by('disability_type_name')
@@ -32,10 +33,13 @@ def get_disability_types(request):
 
     return Response(serialized.data)
 
+# fetch dashboard data
 @api_view(['GET'])
 def get_dashboard_data(request):
     return
 
+
+# CLASS BASED VIEWS
 # occupaton api
 class OccupationViewSet(ModelViewSet):
     queryset = Occupation.objects.all()
@@ -66,12 +70,12 @@ class ApplicationViewSet(ModelViewSet):
     ).all()
      
     serializer_class = ApplicationSerializer
-    filterset_class = ApplicationFilter
+    filterset_class = ApplicationFilter 
 
     def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.order_by('-status')
-    
+        queryset = super().get_queryset() 
+        return queryset.order_by('-status')
+
 
     #! helper only. please optimize and change this
     def generate_issued_pwd_id(self):
@@ -149,6 +153,8 @@ class ApplicationViewSet(ModelViewSet):
             return Response({"message": "Application rejected."}, status=200)
 
         return Response({"error": "Invalid action."}, status=400)
+
+
 
 class PWDInfoViewSet(ModelViewSet):
     queryset = PWDInfo.objects.all()

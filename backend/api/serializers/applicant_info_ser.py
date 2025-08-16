@@ -25,6 +25,7 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = '__all__'
+
 class OccupationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Occupation
@@ -69,6 +70,7 @@ class ApplicantDisabilitySerializer(serializers.ModelSerializer):
         model = ApplicantDisability
         # fields = '__all__'
         exclude = ['applicant']
+
 
 class ApplicantSerializer(serializers.ModelSerializer):
 
@@ -155,8 +157,6 @@ class ApplicationSerializer(serializers.ModelSerializer):
     applicant = ApplicantSerializer()
 
     # accomplished_by_display = serializers.SerializerMethodField()
-
-
     class Meta:
         model = Application
         fields = '__all__'
@@ -185,5 +185,4 @@ class ApplicationSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-    
-    
+     

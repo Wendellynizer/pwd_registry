@@ -75,10 +75,12 @@ class Applicant(models.Model):
             ('N', 'No'),
         ]
     ) 
+
     coordinates = models.JSONField(default=dict)
 
     def __str__(self):
         return f'{self.firstname} {self.middlename} {self.lastname}'
+
 
 class Application(models.Model):
     applicant = models.OneToOneField(
@@ -128,3 +130,9 @@ class Application(models.Model):
     )
 
     date_applied = models.DateField(auto_now_add=True)
+
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.applicant} App"
