@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import admin
 
-from . import Application
+from .application import Application
 
 class PWD(models.Model):
     application = models.ForeignKey(

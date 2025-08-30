@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from . import Disability, DisabilitySerializer
-from api.models import ApplicantDisability
+from api.models.applicant_disability import ApplicantDisability
 
 
 # --- APPLICANT DISABILITY SERIALIZERS ---

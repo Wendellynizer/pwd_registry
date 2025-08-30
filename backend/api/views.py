@@ -10,7 +10,8 @@ from api.filters import ApplicationFilter
 
 from .models.address import Barangay
 from .models.disability import DisabilityType
-from .models.pwd import PWDInfo, StatusLog
+from .models.pwd import PWD
+from .models.status_logs import StatusLog
 
 from .serializers import *
 
@@ -86,7 +87,7 @@ class ApplicationViewSet(ModelViewSet):
         year = date.today().year
         prefix = f"PWD-{year}-"
 
-        last_id = PWDInfo.objects.filter(
+        last_id = PWD.objects.filter(
             issued_pwd_id__startswith=prefix
         ).order_by('-issued_pwd_id').first()
 
@@ -102,7 +103,7 @@ class ApplicationViewSet(ModelViewSet):
         while True:
             next_sequence = last_sequence + 1
             new_id = f"{prefix}{str(next_sequence).zfill(5)}"
-            if not PWDInfo.objects.filter(issued_pwd_id=new_id).exists():
+            if not PWD.objects.filter(issued_pwd_id=new_id).exists():
                 return new_id
             last_sequence += 1  # Continue to next sequence if already taken 
     
@@ -158,8 +159,8 @@ class ApplicationViewSet(ModelViewSet):
 
 
 
-class PWDInfoViewSet(ModelViewSet):
-    queryset = PWDInfo.objects.all()
+class PWDViewSet(ModelViewSet):
+    queryset = PWD.objects.all()
     serializer_class = PWDInfoSerializer
 
 class StatusLog(ModelViewSet):

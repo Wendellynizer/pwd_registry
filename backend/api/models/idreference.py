@@ -1,11 +1,9 @@
 from django.db import models
 
-from . import Applicant
-
 class IDReference(models.Model):
 
     applicant = models.OneToOneField(
-        Applicant,
+        'Applicant',
         on_delete=models.CASCADE
     )
 

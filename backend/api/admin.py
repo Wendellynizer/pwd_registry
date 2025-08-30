@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models.pwd import *
+from .models.status_logs import *
 from .models.address import *
 from .models.employment import *
 from .models.disability import *
@@ -21,9 +22,9 @@ class ApplicationAdmin(admin.ModelAdmin):
         'status'
     ]
 
-class PWDInfoAdmin(admin.ModelAdmin):
+class PWDAdmin(admin.ModelAdmin):
     list_display = [
-        'application', 'issued_pwd_id', 'issuance_date', 'id_expiration', 
+        'application', 'date_died', 'created_at', 'updated_at', 
         'is_active'
     ]
 
@@ -73,6 +74,6 @@ admin.site.register(ApplicantDisability, ApplicantDisabilityAdmin)
 
 admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Application, ApplicationAdmin)
-admin.site.register(PWD, PWDInfoAdmin)
+admin.site.register(PWD, PWDAdmin)
 
 

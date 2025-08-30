@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import Disability
+from .disability import Disability
 
 class ApplicantDisability(models.Model):
     disability_cause = models.CharField(

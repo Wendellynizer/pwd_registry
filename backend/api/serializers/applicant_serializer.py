@@ -2,7 +2,11 @@ from rest_framework import serializers
 from django.db import transaction
 
 from . import AddressSerializer, EmploymentSerializer, IDReferenceSerializer, ApplicantDisabilitySerializer, ApplicantDisabilityListSerializer
-from api.models import Applicant, Address, Employment, IDReference, ApplicantDisability
+from api.models.applicant import Applicant
+from api.models.applicant_disability import ApplicantDisability
+from api.models.idreference import IDReference
+from api.models.address import  Address
+from api.models.employment import  Employment
 
 
 # --- APPLICANT SERIALIZER ---
