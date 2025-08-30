@@ -1,7 +1,7 @@
-import api from '@services/api';
+import api from "@services/api";
 
-const URL = '/barangays';
+const URL = "/barangays/";
 
 export const barangayService = {
-    getAll: () => api.get(URL).then(res => res.data),
-}
+  getAll: () => api.get(URL).then((res) => res.data),
+};

@@ -1,6 +1,6 @@
 import api from '@services/api';
 
-const URL = '/applications';
+const URL = '/applications/';
 
 export const applicationService = {
     getAll: () => api.get(URL).then(res => res.data),

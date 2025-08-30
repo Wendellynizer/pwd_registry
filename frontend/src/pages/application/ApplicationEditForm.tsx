@@ -20,13 +20,6 @@ const ApplicationEditForm = () => {
 
   const navigate = useNavigate();
 
-
-  // const { register, control, handleSubmit } = useForm<any>({
-  //     defaultValues: {
-	// 			firstname: ''
-  //     }
-  // });
-
   const apiToFormData = (apiData: any) => {
     const { applicant, ...rest } = apiData;
 

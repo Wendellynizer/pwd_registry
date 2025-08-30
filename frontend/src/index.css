@@ -5,8 +5,17 @@
    themes: light --default;
 }
 
+a,
+button {
+   cursor: pointer;
+}
+
 @theme {
    --font-poppins: 'Poppins', sans-serif;
+}
+
+@theme inline {
+
 }
 
 html, body {

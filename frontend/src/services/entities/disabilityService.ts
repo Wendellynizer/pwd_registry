@@ -1,6 +1,6 @@
 import api from '@services/api';
 
-const URL = '/disabilities';
+const URL = '/disabilities/';
 
 export const disabilityService = {
     getAll: () => api.get(URL).then(res => res.data),

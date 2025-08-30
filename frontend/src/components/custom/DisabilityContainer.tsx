@@ -5,9 +5,9 @@ import SelectInput from '@components/common/form-context-inputs/SelectInput';
 
 interface DisabilityContainerProps {
   index: number;
-  remove: (index: number) => void;
   disabled?: boolean;
   disabilityOption: [];
+  remove: (index: number) => void;
 }
 
 const DisabilityContainer = ({
@@ -16,6 +16,7 @@ const DisabilityContainer = ({
   disabled = false,
   disabilityOption,
 }: DisabilityContainerProps) => {
+
   const { control } = useFormContext();
 
   return (
@@ -42,6 +43,7 @@ const DisabilityContainer = ({
           <Controller
             name={`applicant.applicant_disabilities.${index}.disability`}
             control={control}
+            defaultValue=''
             render={({ field }) => (
               <SelectInput
                 {...field}

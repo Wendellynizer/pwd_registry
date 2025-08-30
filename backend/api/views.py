@@ -12,9 +12,7 @@ from .models.address import Barangay
 from .models.disability import DisabilityType
 from .models.pwd import PWDInfo, StatusLog
 
-from .serializers.applicant_info_ser import *
-from .serializers.disability_ser import *
-from .serializers.pwd_ser import *
+from .serializers import *
 
 # FUNCTION BASE VIEWS
 # fetch barangays
@@ -60,7 +58,6 @@ class DisabilityViewSet(ModelViewSet):
 
 # application api
 class ApplicationViewSet(ModelViewSet):
-    # queryset = Application.objects.all().order_by('-id')
     queryset = Application.objects.select_related(
         'applicant__address__barangay',
         'applicant__employment__occupation',
@@ -75,6 +72,11 @@ class ApplicationViewSet(ModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset() 
         return queryset.order_by('-status')
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ApplicationListSerializer
+        return ApplicationSerializer
 
 
     #! helper only. please optimize and change this

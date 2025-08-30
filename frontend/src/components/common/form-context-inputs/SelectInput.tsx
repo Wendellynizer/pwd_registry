@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form';
+import { useFormContext } from "react-hook-form";
 
 interface SelectOption {
   label: string;
@@ -6,46 +6,46 @@ interface SelectOption {
 }
 
 interface SelectInputProps {
-    label?: string;
-    name: string,
-    options?: SelectOption[],
-    defaultValue?: string,
-    required?: boolean;
-    value?: string | number;
-    onChange?: (value: any) => void;
-}   
+  label?: string;
+  name: string;
+  selectOptions?: SelectOption[];
+  defaultValue?: string;
+  required?: boolean;
+  value?: string | number;
+  onChange?: (value: any) => void;
+}
 
-const SelectInput = ({ 
-  label, 
-  name, 
-  options=[], 
-  defaultValue='--Select--',
-  required=false, 
-  onChange, 
-  ...rest 
+const SelectInput = ({
+  label,
+  name,
+  selectOptions = [],
+  defaultValue = "--Select--",
+  required = false,
+  onChange,
+  ...rest
 }: SelectInputProps) => {
-    
   const { register } = useFormContext();
-  
+
+  // console.log("SelectInput options:", selectOptions, Array.isArray(selectOptions));
+
   return (
     <div className="mb-4">
-      {label && 
-        <label htmlFor={name} className='mb-2 flex items-center'>{label} 
-          {required && 
+      {label && (
+        <label htmlFor={name} className="mb-2 flex items-center">
+          {label}
+          {required && (
             <>
-            <span className="text-red-500 me-2">*</span>
-            <span className="text-xs text-gray-400">(required)</span>
-            </> }
+              <span className="text-red-500 me-2">*</span>
+              <span className="text-xs text-gray-400">(required)</span>
+            </>
+          )}
         </label>
-      }
+      )}
 
-      <select
-        className="select select-sm"
-        {...register(name)}
-        {...rest}
-      >
+      <select className="select select-sm" {...register(name)} {...rest}>
         <option value="">--Select--</option>
-        {options.map(({ label, value }) => (
+        
+        {selectOptions.map(({ label, value }) => (
           <option key={value} value={value}>
             {label}
           </option>

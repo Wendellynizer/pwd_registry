@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib import admin
 
-from .application import Application
+from . import Application
 
-class PWDInfo(models.Model):
+class PWD(models.Model):
     application = models.ForeignKey(
         Application,
         on_delete=models.CASCADE
@@ -12,9 +12,8 @@ class PWDInfo(models.Model):
     inactive_reason = models.CharField(max_length=255,)
     date_died = models.DateField(null=True, blank=True)
 
-    issued_pwd_id = models.CharField(max_length=255)
-    issuance_date = models.DateField()
-    id_expiration = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField()
 
     # just improves UI in admin page
     @admin.display(
@@ -23,13 +22,3 @@ class PWDInfo(models.Model):
 
     def is_active(self):
         return self.inactive_reason == ""
-
-class StatusLog(models.Model):
-    pwd = models.ForeignKey(
-        PWDInfo,
-        on_delete=models.CASCADE
-    )
-
-    message = models.CharField(max_length=255, blank=True, null=True)
-
-    created_at = models.DateField(auto_now_add=True)

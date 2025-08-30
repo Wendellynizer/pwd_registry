@@ -1,6 +1,6 @@
 import api from '@services/api';
 
-const URL = '/pwds';
+const URL = '/pwds/';
 
 export const pwdService = {
     getAll: () => api.get(URL).then(res => res.data),
