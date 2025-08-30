@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import Applicant
+from .applicant import Applicant
 
 class Application(models.Model):
     applicant = models.OneToOneField(

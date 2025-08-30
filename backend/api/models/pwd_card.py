@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import PWD
+from .pwd import PWD
 
 class PWDCard(models.Model):
     pwd = models.OneToOneField(
@@ -13,7 +13,7 @@ class PWDCard(models.Model):
     id_expiration_date = models.DateField()
 
     # active, inactive, expiring
-    id_status = models.CharField()
+    id_status = models.CharField(max_length=10)
 
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField()

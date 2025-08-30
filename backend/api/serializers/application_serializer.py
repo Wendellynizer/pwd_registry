@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.db import transaction
 
 from . import ApplicantSerializer, ApplicantListSerializer
-from api.models import Application
+from api.models.application import Application
 
 
 # --- APPLICATION SERIALIZERS ---

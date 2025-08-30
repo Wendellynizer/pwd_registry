@@ -1,10 +1,9 @@
 from django.db import models
 
-from . import Applicant
 class Occupation(models.Model):
     
     applicant = models.OneToOneField(
-        Applicant,
+        'Applicant',
         on_delete=models.CASCADE
     )
 

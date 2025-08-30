@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import Disability, DisabilityType
+from api.models.disability import Disability, DisabilityType
 
 class DisabilityTypeSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import Applicant
+# from . import Applicant
 
 class Barangay(models.Model):
     barangay_name = models.CharField(max_length=50)
@@ -11,7 +11,7 @@ class Barangay(models.Model):
 class Address(models.Model):
 
     applicant = models.OneToOneField(
-        Applicant,
+        'Applicant',
         on_delete=models.CASCADE
     )
 

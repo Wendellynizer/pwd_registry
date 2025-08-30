@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from . import ApplicationSerializer
-from api.models import PWD, StatusLog
+from api.models.pwd import PWD
+from api.models.status_logs import StatusLog
 
 
 class PWDInfoSerializer(serializers.ModelSerializer):

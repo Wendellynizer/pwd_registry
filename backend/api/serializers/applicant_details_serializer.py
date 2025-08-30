@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from api.models import Barangay, Address, Occupation, Employment, IDReference
+from api.models.address import Barangay, Address
+from api.models.employment import Occupation, Employment
+from api.models.idreference import IDReference
 
 # serialized data into JSON etc.
 class BarangaySerializer(serializers.ModelSerializer):

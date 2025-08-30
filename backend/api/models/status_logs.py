@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import PWD
+from .pwd import PWD
 
 class StatusLog(models.Model):
     pwd = models.ForeignKey(
