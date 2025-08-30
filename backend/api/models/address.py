@@ -1,5 +1,7 @@
 from django.db import models
 
+from . import Applicant
+
 class Barangay(models.Model):
     barangay_name = models.CharField(max_length=50)
 
@@ -7,6 +9,12 @@ class Barangay(models.Model):
         return self.barangay_name
     
 class Address(models.Model):
+
+    applicant = models.OneToOneField(
+        Applicant,
+        on_delete=models.CASCADE
+    )
+
     street_address = models.CharField(max_length=100)
     barangay = models.ForeignKey(
         Barangay, 

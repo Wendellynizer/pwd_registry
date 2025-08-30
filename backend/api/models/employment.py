@@ -1,6 +1,13 @@
 from django.db import models
 
+from . import Applicant
 class Occupation(models.Model):
+    
+    applicant = models.OneToOneField(
+        Applicant,
+        on_delete=models.CASCADE
+    )
+
     occupation_name = models.CharField(max_length=255)
 
     def __str__(self):

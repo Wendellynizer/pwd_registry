@@ -1,6 +1,6 @@
 import api from '@services/api';
 
-const URL = '/status_logs';
+const URL = '/status_logs/';
 
 export const statusLogService = {
     getAll: () => api.get(URL).then(res => res.data),

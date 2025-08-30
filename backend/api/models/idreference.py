@@ -1,6 +1,14 @@
 from django.db import models
 
+from . import Applicant
+
 class IDReference(models.Model):
+
+    applicant = models.OneToOneField(
+        Applicant,
+        on_delete=models.CASCADE
+    )
+
     sss_no = models.CharField(max_length=50, null=True, blank=True)
     gsis_no = models.CharField(max_length=50, null=True, blank=True)
     pagibig_no = models.CharField(max_length=50, null=True, blank=True)

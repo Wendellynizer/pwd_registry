@@ -6,7 +6,7 @@ import Dashboard from "@pages/dashboard/Dashboard";
 import Application from "@pages/application/Application";
 import ApplicationProfile from "@pages/application/ApplicationProfile";
 import ApplicationEditForm from "@pages/application/ApplicationEditForm";
-import PWDForm from "@/pages/pwd/PWDForm";
+import PWDForm from "@/pages/application/ApplicationForm";
 import NotFound from "@pages/NotFound";
 import PWD from "@/pages/pwd/PWD";
 import Map from "@/pages/map/Map";

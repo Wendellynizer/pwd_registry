@@ -4,6 +4,7 @@ from .models.pwd import *
 from .models.address import *
 from .models.employment import *
 from .models.disability import *
+from .models.applicant_disability import *
 from .models.idreference import *
 from .models.application import *
 
@@ -72,6 +73,6 @@ admin.site.register(ApplicantDisability, ApplicantDisabilityAdmin)
 
 admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Application, ApplicationAdmin)
-admin.site.register(PWDInfo, PWDInfoAdmin)
+admin.site.register(PWD, PWDInfoAdmin)
 
 

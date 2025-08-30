@@ -51,8 +51,6 @@ const Application = () => {
 
   if(!applications) return <p>Loading</p>
 
-  // console.log(applications[0]);
-
   return (
     
     <div className='p-5 space-y-4'>

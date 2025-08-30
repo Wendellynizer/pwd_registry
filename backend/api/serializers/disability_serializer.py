@@ -1,13 +1,14 @@
 from rest_framework import serializers
 
-from ..models.disability import *
-# from .applicant_info_ser import ApplicantSerializer
+from api.models import Disability, DisabilityType
 
 class DisabilityTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DisabilityType
         fields = ['disability_type_name']
 
+
+# --- DISABILITY SERIALIZERS ---
 class DisabilitySerializer(serializers.ModelSerializer):
 
     disability_type = serializers.PrimaryKeyRelatedField(
@@ -21,4 +22,3 @@ class DisabilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Disability
         fields = '__all__'
-
